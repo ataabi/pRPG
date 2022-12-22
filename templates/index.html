@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+</head>
+<body>
+    <h1>Início</h1>
+    <a href="{% url 'cria_ficha' %}">Criar Ficha</a>
+    <a href="{% url 'ver_ficha' %}">Ver Ficha</a>
+    <a href="{% url 'cadastro' %}">Cadastro</a>
+    <a href="{% url 'login_view' %}">Login</a>
+    <a href="{% url 'logout_view' %}">Logout</a>
+
+    <div id="dados">
+        <button id="d6" onclick="resultado(6)">D6</button>
+        <button id="d8" onclick="resultado(8)">D8</button>
+        <button id="d12" onclick="resultado(12)">D12</button>
+        <button id="d20" onclick="resultado(20)">D20</button>
+    </div>
+
+    <div id="resultado"></div>
+
+    <script>
+        pagina = window.document.document
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+        function resultado(dado) {
+            let valor = getRandomInt(dado);
+            if(valor < 1 ){
+                console.log('0')
+                valor = 1
+            }
+            let campo = window.document.querySelector('div#resultado');
+            campo.innerText = valor
+        }
+    </script>
+</body>
+</html>
