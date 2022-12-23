@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pRPG</title>
+    <style>
+        body {
+            background-color: rgb(90, 52, 2);
+        }
+        .banner {
+            text-align: center;
+            padding: 10px;
+            vertical-align: baseline;
+            background-color: goldenrod;
+            height: 40px;
+            border-radius: 1pc 1pc 0 0;
+        }
+        
+        .navegador {
+            border: 2px solid goldenrod;
+            border-radius: 0 0 1pc 1pc ;
+            padding: 5px 2%x 5px 2%;
+            margin: auto ;
+            text-align: center;
+            text-decoration: none;
+            background-color: black
+        }
+        .navegador a {
+            font-size: 18px;
+            font-weight: 800;
+            text-decoration: none;
+            color: goldenrod;
+            margin: 10px;
+        }
+        /* Popup container */
+        .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        }
+
+        /* The actual popup (appears on top) */
+        .popup .popuptext {
+        visibility: hidden;
+        width: 160px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -80px;
+        }
+
+        /* Popup arrow */
+        .popup .popuptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+        }
+
+        /* Toggle this class when clicking on the popup container (hide and show the popup) */
+        .popup .show {
+        visibility: visible;
+        -webkit-animation: fadeIn 1s;
+        animation: fadeIn 1s
+        }
+
+        /* Add animation (fade in the popup) */
+        @-webkit-keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity: 1;}
+        }
+
+        @keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity:1 ;}
+        }
+    </style>
+</head>
+<body> 
+    <div class="banner">
+        <h2>pRPG D&D 5e</h2>
+    </div>
+    <div class="navegador">
+       <nav>
+            <a href="{% url 'index' %}" >Inicio</a>
+            <a href="{% url 'editar_ficha' %}" >Inicio</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'cria_ficha' %}">Criar Ficha</a>
+                <a href="{% url 'ver_ficha' %}">Ver Ficha</a>
+                <a href="{% url 'logout_view' %}" >Logout</a>
+            {% else %}
+                <a href="{% url 'cadastro' %}" >Cadastro</a>
+                <a href="{% url 'login_view' %}" >Login</a>
+            {% endif %}
+        </nav> 
+    </div>
+    
+    {% block base %} {%endblock%}
+</body>
+</html>

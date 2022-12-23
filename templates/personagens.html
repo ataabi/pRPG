@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personagens</title>
-</head>
-<body>
+
+{% extends 'base.html' %}
+{% block base %}
     <h2>Meus Personagens</h2>
     <form action="{% url 'ver_ficha' %}" method="POST">
     {% csrf_token %}
@@ -14,5 +8,4 @@
             <a><input type="submit" value="{{personagem.nome_personagem }}" name="personagem"></a>
         {% endfor %}
     </form>
-</body>
-</html>
+{% endblock %}

@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'base.html')
 
 @login_required(login_url='/login')
 def cria_ficha(request):
@@ -20,7 +20,7 @@ def cria_ficha(request):
         nome_personagem = request.POST['nome_personagem']
         if BasePersonagem.objects.filter(nome_jogador=nome_jogador,nome_personagem=nome_personagem).exists():
             print('Nome de personagem em uso')
-            return redirect('criar_ficha')
+            return redirect('cria_ficha')
 
         ficha = BasePersonagem.objects.create(
             nome_jogador = nome_jogador,
@@ -38,9 +38,9 @@ def cria_ficha(request):
             deslocamento = request.POST['deslocamento'],
             inspiracao = request.POST['inspiracao'],
             proficiencia = request.POST['proficiencia'],
-            pv_maximo = request.POST['pvmax'],
-            pv_atual = request.POST['pvatual'],
-            dados_vida =request.POST['dv'],
+            pv_maximo = request.POST['pv_maximo'],
+            pv_atual = request.POST['pv_atual'],
+            dados_vida =request.POST['dados_vida'],
             idiomas = request.POST['idiomas'],
             #Habilidades basicas
             forca=request.POST['forca'],
@@ -50,55 +50,54 @@ def cria_ficha(request):
             sabedoria=request.POST['sabedoria'],
             carisma=request.POST['carisma'],
             # Teste de Resistencia 
-            res_for = request.POST['tr_for'], ores_for = request.POST['otr_for'],
-            res_des = request.POST['tr_des'], ores_des = request.POST['otr_des'],
-            res_cons= request.POST['tr_cons'], ores_cons= request.POST['otr_cons'],
-            res_int= request.POST['tr_int'], ores_int= request.POST['otr_int'],
-            res_sab= request.POST['tr_sab'], ores_sab= request.POST['otr_sab'],
-            res_car= request.POST['tr_car'], ores_car= request.POST['otr_car'],
-            
+            res_for = request.POST['res_for'], ores_for = request.POST['ores_for'],
+            res_des = request.POST['res_des'], ores_des = request.POST['ores_des'],
+            res_cons= request.POST['res_cons'], ores_cons= request.POST['ores_cons'],
+            res_int= request.POST['res_int'], ores_int= request.POST['ores_int'],
+            res_sab= request.POST['res_sab'], ores_sab= request.POST['ores_sab'],
+            res_car= request.POST['res_car'], ores_car= request.POST['ores_car'],
             #Pericias
-            acrobacia = request.POST.get('acrobacia'), ot_acrobacia = request.POST.get('o_acrobacia'),
+            acrobacia = request.POST.get('acrobacia'), ot_acrobacia = request.POST.get('ot_acrobacia'),
             adestrar_animais = request.POST.get('adestrar_animais'),
-            ot_adestrar_animais = request.POST.get('o_adestrar_animais'),
-            arcanismo = request.POST.get('arcanismo'), ot_arcanismo = request.POST['o_arcanismo'],
-            atletismo = request.POST.get('atletismo'), ot_atletismo = request.POST['o_atletismo'],
-            atuacao = request.POST.get('atuacao'), ot_atuacao = request.POST['o_atuacao'],
-            enganacao = request.POST.get('enganacao'), ot_enganacao = request.POST['o_enganacao'],
-            furtividade = request.POST.get('furtividade'), ot_furtividade = request.POST['o_furtividade'],
-            historia = request.POST.get('historia'), ot_historia = request.POST['o_historia'],
-            intimidacao = request.POST.get('intimidacao'), ot_intimidacao = request.POST['o_intimidacao'],
-            intuicao = request.POST.get('intuicao'), ot_intuicao = request.POST['o_intuicao'],
-            investigação = request.POST.get('investigação'), ot_investigação = request.POST['o_investigação'],
-            medicina = request.POST.get('medicina'), ot_medicina = request.POST['o_medicina'],
-            natureza = request.POST.get('natureza'), ot_natureza = request.POST['o_natureza'],
-            percepcao = request.POST.get('percepcao'), ot_percepcao = request.POST['o_percepcao'],
-            persuasao = request.POST.get('persuasao'), ot_persuasao = request.POST['o_persuasao'],
-            prestidigitar = request.POST.get('prestidigitar'), ot_prestidigitar = request.POST['o_prestidigitar'],
-            religiao = request.POST.get('religiao'), ot_religiao = request.POST['o_religiao'],
-            sobrevivencia = request.POST.get('sobrevivencia'), ot_sobrevivencia = request.POST['o_sobrevivencia'],
+            ot_adestrar_animais = request.POST.get('ot_adestrar_animais'),
+            arcanismo = request.POST.get('arcanismo'), ot_arcanismo = request.POST['ot_arcanismo'],
+            atletismo = request.POST.get('atletismo'), ot_atletismo = request.POST['ot_atletismo'],
+            atuacao = request.POST.get('atuacao'), ot_atuacao = request.POST['ot_atuacao'],
+            enganacao = request.POST.get('enganacao'), ot_enganacao = request.POST['ot_enganacao'],
+            furtividade = request.POST.get('furtividade'), ot_furtividade = request.POST['ot_furtividade'],
+            historia = request.POST.get('historia'), ot_historia = request.POST['ot_historia'],
+            intimidacao = request.POST.get('intimidacao'), ot_intimidacao = request.POST['ot_intimidacao'],
+            intuicao = request.POST.get('intuicao'), ot_intuicao = request.POST['ot_intuicao'],
+            investigação = request.POST.get('investigação'), ot_investigação = request.POST['ot_investigação'],
+            medicina = request.POST.get('medicina'), ot_medicina = request.POST['ot_medicina'],
+            natureza = request.POST.get('natureza'), ot_natureza = request.POST['ot_natureza'],
+            percepcao = request.POST.get('percepcao'), ot_percepcao = request.POST['ot_percepcao'],
+            persuasao = request.POST.get('persuasao'), ot_persuasao = request.POST['ot_persuasao'],
+            prestidigitar = request.POST.get('prestidigitar'), ot_prestidigitar = request.POST['ot_prestidigitar'],
+            religiao = request.POST.get('religiao'), ot_religiao = request.POST['ot_religiao'],
+            sobrevivencia = request.POST.get('sobrevivencia'), ot_sobrevivencia = request.POST['ot_sobrevivencia'],
         )
         ficha.save()
 
-        personagem = BasePersonagem.objects.filter(nome_personagem=nome_personagem,nome_jogador=nome_jogador).order_by('id').last()
-        
-        lista_habilidades_c = request.POST.getlist('habilidade_classe')
-        for hab in lista_habilidades_c:
-            HabilidadesClasse.objects.create(personagem=personagem,habilidade=hab,descricao='teste 123')
-        
+        personagem = BasePersonagem.objects.get(nome_personagem=nome_personagem,nome_jogador=nome_jogador)
+
+        lista_habilidades_c = request.POST.getlist('habilidade_classe',)
+        for item in lista_habilidades_c:
+            HabilidadesClasse.objects.create(personagem=ficha,habilidade=item,descricao='Descrição')
+
         lista_talentos = request.POST.getlist('talentos_classe')
-        print(lista_talentos)
-        for talento in lista_talentos:
-            TalentosClasse.objects.create(personagem=personagem,talento=talento,descricao='teste 123')
-        
+        for item in lista_talentos:
+            TalentosClasse.objects.create(personagem=ficha,talento=item,descricao='Descrição')
+
         lista_cara_raciais = request.POST.getlist('cara_raciais_classe')
-        print(lista_cara_raciais)
-        for cara in lista_cara_raciais:
-            CaracteristicasRaciaisClasse.objects.create(personagem=personagem,caracteristica=cara,descricao='teste 123')
-        
+        for item in lista_cara_raciais:
+            CaracteristicasRaciaisClasse.objects.create(personagem=ficha,caracteristica=item,descricao='Descrição')
+
         return render(request, 'ver_ficha.html')
 
 
+
+@login_required(login_url='/login')
 def ver_ficha(request):
     try:
         base = BasePersonagem.objects.get(
@@ -121,11 +120,100 @@ def ver_ficha(request):
     return render(request,'ver_ficha.html' ,dados)
 
 
+@login_required(login_url='/login')
 def editar_ficha(request):
     jogador = request.user.username
-    pid = request.POST.get('pid')
-    print(jogador)
+    pid = request.POST.get('id')
     print(pid)
+    BasePersonagem.objects.filter(pk=pid).update(
+            nome_jogador = jogador,
+            nome_personagem = request.POST['nome_personagem'],
+            raca = request.POST['raca'],
+            classe = request.POST['classe'],
+            arquetipo = request.POST['arquetipo'],
+            nivel = request.POST['nivel'],
+            antecedente = request.POST['antecedente'],
+            tendencia = request.POST['tendencia'],
+            divindade = request.POST['divindade'],
+            terra_natal = request.POST['terra_natal'],
+            iniciativa = request.POST['iniciativa'],
+            c_a = request.POST['c_a'],
+            deslocamento = request.POST['deslocamento'],
+            inspiracao = request.POST['inspiracao'],
+            proficiencia = request.POST['proficiencia'],
+            pv_maximo = request.POST['pv_maximo'],
+            pv_atual = request.POST['pv_atual'],
+            dados_vida =request.POST['dados_vida'],
+            idiomas = request.POST['idiomas'],
+            #Habilidades basicas
+            forca=request.POST['forca'],
+            destreza=request.POST['destreza'],
+            constituicao=request.POST['constituicao'],
+            inteligencia=request.POST['inteligencia'],
+            sabedoria=request.POST['sabedoria'],
+            carisma=request.POST['carisma'],
+            # Teste de Resistencia 
+            res_for = request.POST.get('res_for'), ores_for = request.POST['ores_for'],
+            res_des = request.POST.get('res_des'), ores_des = request.POST['ores_des'],
+            res_cons= request.POST.get('res_cons'), ores_cons= request.POST['ores_cons'],
+            res_int= request.POST.get('res_int'), ores_int= request.POST['ores_int'],
+            res_sab= request.POST.get('res_sab'), ores_sab= request.POST['ores_sab'],
+            res_car= request.POST.get('res_car'), ores_car= request.POST['ores_car'],
+            
+            #Pericias
+            acrobacia = request.POST.get('acrobacia'), ot_acrobacia = request.POST.get('ot_acrobacia'),
+            adestrar_animais = request.POST.get('adestrar_animais'),
+            ot_adestrar_animais = request.POST.get('ot_adestrar_animais'),
+            arcanismo = request.POST.get('arcanismo'), ot_arcanismo = request.POST['ot_arcanismo'],
+            atletismo = request.POST.get('atletismo'), ot_atletismo = request.POST['ot_atletismo'],
+            atuacao = request.POST.get('atuacao'), ot_atuacao = request.POST['ot_atuacao'],
+            enganacao = request.POST.get('enganacao'), ot_enganacao = request.POST['ot_enganacao'],
+            furtividade = request.POST.get('furtividade'), ot_furtividade = request.POST['ot_furtividade'],
+            historia = request.POST.get('historia'), ot_historia = request.POST['ot_historia'],
+            intimidacao = request.POST.get('intimidacao'), ot_intimidacao = request.POST['ot_intimidacao'],
+            intuicao = request.POST.get('intuicao'), ot_intuicao = request.POST['ot_intuicao'],
+            investigação = request.POST.get('investigação'), ot_investigação = request.POST['ot_investigação'],
+            medicina = request.POST.get('medicina'), ot_medicina = request.POST['ot_medicina'],
+            natureza = request.POST.get('natureza'), ot_natureza = request.POST['ot_natureza'],
+            percepcao = request.POST.get('percepcao'), ot_percepcao = request.POST['ot_percepcao'],
+            persuasao = request.POST.get('persuasao'), ot_persuasao = request.POST['ot_persuasao'],
+            prestidigitar = request.POST.get('prestidigitar'), ot_prestidigitar = request.POST['ot_prestidigitar'],
+            religiao = request.POST.get('religiao'), ot_religiao = request.POST['ot_religiao'],
+            sobrevivencia = request.POST.get('sobrevivencia'), ot_sobrevivencia = request.POST['ot_sobrevivencia'],
+        )
+    personagem = BasePersonagem.objects.get(pk=pid)
+    print(personagem)
+    lista_habilidades_c = request.POST.getlist('habilidade_classe',)
+    print(lista_habilidades_c)
+    old = HabilidadesClasse.objects.filter(personagem=personagem).delete()
+    print(HabilidadesClasse.objects.filter(personagem=personagem))
+    
+
+    lista_habilidades_c = request.POST.getlist('habilidade_classe',)
+    for item in lista_habilidades_c:
+        HabilidadesClasse.objects.create(personagem=personagem,habilidade=item,descricao='Descrição')
+
+    # for habilidade in lista_habilidades_c:
+    #     print(type(habilidade))
+    #     habilidade_client = str(habilidade)
+    #     if old.filter(habilidade=habilidade_client).exists():
+    #         print('Habilidade ja existente.')
+    #     else:
+    #         print('nao existe')
+        # for item in old:
+        #     print(type(item))
+        #     habilidade_server = str(item)
+        #     if habilidade_client == habilidade_server :
+                # old.create(personagem=personagem,habilidade=str(habilidade),descricao='Atualizado')
+
+
+
+
+    print(HabilidadesClasse.objects.filter(personagem=personagem))
+
+    # for item in lista_habilidades_c:
+    #     HabilidadesClasse.objects.create(personagem=ficha,habilidade=item,descricao='Descrição')
+
     return redirect('ver_ficha')
 
 
@@ -135,8 +223,8 @@ def cadastro(request):
     
     if request.method == 'POST':
         nome_usuario = request.POST.get('nome_usuario')
-        apelido_usuario = request.POST.get('apelido_usuario')
-        if User.objects.filter(username=apelido_usuario).exists():
+        apelidot_usuario = request.POST.get('apelidot_usuario')
+        if User.objects.filter(username=apelidot_usuario).exists():
             messages.add_message(request, messages.INFO, 'Este Nick já está em uso')
             return redirect('cadastro')
 
@@ -156,7 +244,7 @@ def cadastro(request):
             return redirect('cadastro')
 
         usuario = User.objects.create_user(
-            username=apelido_usuario, first_name=nome_usuario, 
+            username=apelidot_usuario, first_name=nome_usuario, 
             email=email_usuario, password=senha1_usuario
             )
         usuario.save()
