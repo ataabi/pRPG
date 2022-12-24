@@ -1,11 +1,13 @@
 
 {% extends 'base.html' %}
 {% block base %}
-    <h2>Meus Personagens</h2>
+    <h2>Minhas Fichas</h2>
+
     <form action="{% url 'ver_ficha' %}" method="POST">
     {% csrf_token %}
         {% for personagem in base %}
             <a><input type="submit" value="{{personagem.nome_personagem }}" name="personagem"></a>
         {% endfor %}
     </form>
+    <button><a href="{% url 'cria_ficha' %}">Criar Nova Ficha</a></button>
 {% endblock %}

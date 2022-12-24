@@ -52,10 +52,6 @@
                     </tr>
                     <tr>
                         <th>FOR</th>
-                        <!-- <th><input type="hidden" name="res_for" id="res_for" value='False'></th>
-                        <th><input type="checkbox" name="res_for" id="res_for" value='True'></th>
-                        <th><input type="number" name="ores_for" id="ores_for" value="0"></th> -->
-
                         {% if base.res_for %}
                             <th><input type="checkbox" name="res_for" id="res_for" checked value="True"></th>
                         {% else %}
@@ -340,9 +336,9 @@
                                 {% for hc in habilidades %}
                                 <tr>
                                     <th>
-                                        <div class="popup" onmouseover="myFunction()">
+                                        <div class="popup" onmouseover="myFunction( '{{hc}}' )">
                                             <input type="text" name="habilidade_classe" id="habilidade_classe" value="{{hc}}">
-                                            <span class="popuptext" id="myPopup">Descrição</span>
+                                            <span class="popuptext" id="{{hc}}">{{hc.descricao}}</span>
                                         </div>
                                     </th>
                                 </tr>
@@ -351,16 +347,6 @@
                     </tr>
                 </table>
             </div>
-
-            <script>
-                function myFunction() {
-                var popup = document.getElementById("myPopup");
-                popup.classList.toggle("show");
-                }
-            </script>
-
-
-
 
             <div name='area_talentos' 
             style="display: inline-block; margin-right: 10px; border-color: black; border:2px solid black ; padding: 10px;">
@@ -374,6 +360,7 @@
                     {% for talento in talentos%}    
                         </tr>
                             <th><input type="text" name="talentos_classe" id="talentos_classe" value="{{talento.talento}}"></th>
+                            <th><input type="text" name="des_talentos_classe" id="des_talentos_classe" value="{{talento.descricao}}"></th>
                         </tr>
                     {% endfor %}
                 </table>
@@ -396,11 +383,20 @@
                         {% endfor %}
                 </table>
             </div>
-            
-
+            <br>
             <input type="submit">
         </form>
-
+        <form action="{% url 'ver_ficha' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ base.id }}">
+            <input type="submit" value="Deletar" name="deletar">
+        </form>
+        <script>
+            function myFunction(elemento) {
+            var popup = document.getElementById(elemento);
+            popup.classList.toggle("show");
+            }
+        </script>
         <script>
             let add_h_classe = window.document.getElementById('add_h_classe')
             let rem_h_classe = window.document.getElementById('rem_h_classe')
@@ -408,9 +404,10 @@
             add_h_classe.addEventListener('click', function (event) {
                 let tabela = window.document.getElementById('tabela_h_classe')
                 let row = tabela.insertRow(-1);
-                row.insertCell(0).innerHTML = `<th><input type="text" name="habilidade_classe" id="habilidade_classe"></th>`;
-                row.insertCell(1).innerHTML = `<th><input type="submit" value="Salvar"></th>`;
-                
+                row.insertCell(0).innerHTML = `<th><div class="popup" onmouseover="myFunction()">`;
+                row.insertCell(0).innerHTML = `<input type="text" name="habilidade_classe" id="habilidade_classe" value="{{hc}}">`;
+                row.insertCell(1).innerHTML = `<span class="popuptext" id="myPopup">{{hc.descricao}}</span>`;
+                row.insertCell(1).innerHTML = `</div></th>`;          
             })
         
             rem_h_classe.addEventListener('click', function (event) {

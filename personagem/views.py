@@ -81,9 +81,10 @@ def cria_ficha(request):
 
         personagem = BasePersonagem.objects.get(nome_personagem=nome_personagem,nome_jogador=nome_jogador)
 
-        lista_habilidades_c = request.POST.getlist('habilidade_classe',)
-        for item in lista_habilidades_c:
-            HabilidadesClasse.objects.create(personagem=ficha,habilidade=item,descricao='Descrição')
+        lista_habilidades_c = request.POST.getlist('habilidade_classe')
+        lista_des_habilidades_c = request.POST.getlist('des_habilidade_classe')
+        for item,des in zip(lista_habilidades_c,lista_des_habilidades_c):
+            HabilidadesClasse.objects.create(personagem=ficha,habilidade=item,descricao=des)
 
         lista_talentos = request.POST.getlist('talentos_classe')
         for item in lista_talentos:
@@ -99,6 +100,9 @@ def cria_ficha(request):
 
 @login_required(login_url='/login')
 def ver_ficha(request):
+    if 'deletar' in request.POST:
+        BasePersonagem.objects.get(pk=request.POST.get("id"),nome_jogador=request.user.username).delete()
+    
     try:
         base = BasePersonagem.objects.get(
             nome_jogador=request.user.username,nome_personagem=request.POST.get('personagem')
@@ -181,38 +185,24 @@ def editar_ficha(request):
             religiao = request.POST.get('religiao'), ot_religiao = request.POST['ot_religiao'],
             sobrevivencia = request.POST.get('sobrevivencia'), ot_sobrevivencia = request.POST['ot_sobrevivencia'],
         )
-    personagem = BasePersonagem.objects.get(pk=pid)
-    print(personagem)
-    lista_habilidades_c = request.POST.getlist('habilidade_classe',)
-    print(lista_habilidades_c)
-    old = HabilidadesClasse.objects.filter(personagem=personagem).delete()
-    print(HabilidadesClasse.objects.filter(personagem=personagem))
-    
 
+    personagem = BasePersonagem.objects.get(pk=pid)
+    lista_habilidades_c = request.POST.getlist('habilidade_classe',)
+    HabilidadesClasse.objects.filter(personagem=personagem).delete()
+    
     lista_habilidades_c = request.POST.getlist('habilidade_classe',)
     for item in lista_habilidades_c:
         HabilidadesClasse.objects.create(personagem=personagem,habilidade=item,descricao='Descrição')
 
-    # for habilidade in lista_habilidades_c:
-    #     print(type(habilidade))
-    #     habilidade_client = str(habilidade)
-    #     if old.filter(habilidade=habilidade_client).exists():
-    #         print('Habilidade ja existente.')
-    #     else:
-    #         print('nao existe')
-        # for item in old:
-        #     print(type(item))
-        #     habilidade_server = str(item)
-        #     if habilidade_client == habilidade_server :
-                # old.create(personagem=personagem,habilidade=str(habilidade),descricao='Atualizado')
+    lista_talentos = request.POST.getlist('talentos_classe')
+    TalentosClasse.objects.filter(personagem=personagem).delete()
+    for item in lista_talentos:
+        TalentosClasse.objects.create(personagem=personagem,talento=item,descricao='Descrição')
 
-
-
-
-    print(HabilidadesClasse.objects.filter(personagem=personagem))
-
-    # for item in lista_habilidades_c:
-    #     HabilidadesClasse.objects.create(personagem=ficha,habilidade=item,descricao='Descrição')
+    lista_cara_raciais = request.POST.getlist('cara_raciais_classe')
+    CaracteristicasRaciaisClasse.objects.filter(personagem=personagem).delete()
+    for item in lista_cara_raciais:
+        CaracteristicasRaciaisClasse.objects.create(personagem=personagem,caracteristica=item,descricao='Descrição')    
 
     return redirect('ver_ficha')
 
