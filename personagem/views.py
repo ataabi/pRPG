@@ -1,24 +1,26 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import BasePersonagem, HabilidadesClasse, TalentosClasse, CaracteristicasRaciaisClasse
+from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+
 # Create your views here.
 
 def index(request):
-    return render(request, 'base.html')
+    return render(request, 'index.html')
 
 @login_required(login_url='/login')
 def cria_ficha(request):
     if request.method == 'GET':
-        print(request.user.username)
         return render(request, 'cria_ficha.html')
-    else:
+
+    if request.method == 'POST':
         nome_jogador = request.user.username
         nome_personagem = request.POST['nome_personagem']
         if BasePersonagem.objects.filter(nome_jogador=nome_jogador,nome_personagem=nome_personagem).exists():
+            messages.add_message(request, messages.INFO, 'Você já possui um personagem com este nome')
             print('Nome de personagem em uso')
             return redirect('cria_ficha')
 
@@ -81,19 +83,15 @@ def cria_ficha(request):
 
         personagem = BasePersonagem.objects.get(nome_personagem=nome_personagem,nome_jogador=nome_jogador)
 
-        lista_habilidades_c = request.POST.getlist('habilidade_classe')
-        lista_des_habilidades_c = request.POST.getlist('des_habilidade_classe')
-        for item,des in zip(lista_habilidades_c,lista_des_habilidades_c):
-            HabilidadesClasse.objects.create(personagem=ficha,habilidade=item,descricao=des)
+        #Removendo as Habilidades Atuais e Recriando com base no cliente
+        gerencia_multiplos_elementos(request,HabilidadesClasse,'habilidade_classe',personagem)
 
-        lista_talentos = request.POST.getlist('talentos_classe')
-        for item in lista_talentos:
-            TalentosClasse.objects.create(personagem=ficha,talento=item,descricao='Descrição')
+        #Removendo os Talentos Atuais e Recriando com base no cliente
+        gerencia_multiplos_elementos(request,TalentosClasse,'talentos_classe',personagem)
 
-        lista_cara_raciais = request.POST.getlist('cara_raciais_classe')
-        for item in lista_cara_raciais:
-            CaracteristicasRaciaisClasse.objects.create(personagem=ficha,caracteristica=item,descricao='Descrição')
-
+        #Removendo as Caracteristicas Raciais Atuais e Recriando com base no cliente
+        gerencia_multiplos_elementos(request,CaracteristicasRaciaisClasse,'cara_raciais_classe',personagem)
+        
         return render(request, 'ver_ficha.html')
 
 
@@ -114,11 +112,14 @@ def ver_ficha(request):
     habilidades = HabilidadesClasse.objects.all().filter(personagem=base.id)
     talentos = TalentosClasse.objects.all().filter(personagem=base.id)
     cara_raciais = CaracteristicasRaciaisClasse.objects.all().filter(personagem=base.id)
+    inventario = InventarioPersonagem.objects.all().filter(personagem=base.id)
+    
     dados = {
         'base':base,
         'habilidades':habilidades,
         'talentos':talentos,
-        'cara_raciais':cara_raciais
+        'cara_raciais':cara_raciais,
+        'inventario':inventario
     }
 
     return render(request,'ver_ficha.html' ,dados)
@@ -128,7 +129,8 @@ def ver_ficha(request):
 def editar_ficha(request):
     jogador = request.user.username
     pid = request.POST.get('id')
-    print(pid)
+    print('TENDENCIA')
+    print(request.POST.get('tendencia'))
     BasePersonagem.objects.filter(pk=pid).update(
             nome_jogador = jogador,
             nome_personagem = request.POST['nome_personagem'],
@@ -187,34 +189,28 @@ def editar_ficha(request):
         )
 
     personagem = BasePersonagem.objects.get(pk=pid)
-    lista_habilidades_c = request.POST.getlist('habilidade_classe',)
-    HabilidadesClasse.objects.filter(personagem=personagem).delete()
-    
-    lista_habilidades_c = request.POST.getlist('habilidade_classe',)
-    for item in lista_habilidades_c:
-        HabilidadesClasse.objects.create(personagem=personagem,habilidade=item,descricao='Descrição')
 
-    lista_talentos = request.POST.getlist('talentos_classe')
-    TalentosClasse.objects.filter(personagem=personagem).delete()
-    for item in lista_talentos:
-        TalentosClasse.objects.create(personagem=personagem,talento=item,descricao='Descrição')
+    #Removendo as Habilidades Atuais e Recriando com base no cliente
+    gerencia_multiplos_elementos(request,HabilidadesClasse,'habilidade_classe',personagem)
 
-    lista_cara_raciais = request.POST.getlist('cara_raciais_classe')
-    CaracteristicasRaciaisClasse.objects.filter(personagem=personagem).delete()
-    for item in lista_cara_raciais:
-        CaracteristicasRaciaisClasse.objects.create(personagem=personagem,caracteristica=item,descricao='Descrição')    
+    #Removendo os Talentos Atuais e Recriando com base no cliente
+    gerencia_multiplos_elementos(request,TalentosClasse,'talentos_classe',personagem)
+
+    #Removendo as Caracteristicas Raciais Atuais e Recriando com base no cliente
+    gerencia_multiplos_elementos(request,CaracteristicasRaciaisClasse,'cara_raciais_classe',personagem)
 
     return redirect('ver_ficha')
 
 
+#Usuarios
 def cadastro(request):
     if request.method == 'GET':
         return render(request, 'cadastro.html')
     
     if request.method == 'POST':
         nome_usuario = request.POST.get('nome_usuario')
-        apelidot_usuario = request.POST.get('apelidot_usuario')
-        if User.objects.filter(username=apelidot_usuario).exists():
+        apelido_usuario = request.POST.get('apelido_usuario')
+        if User.objects.filter(username=apelido_usuario).exists():
             messages.add_message(request, messages.INFO, 'Este Nick já está em uso')
             return redirect('cadastro')
 
@@ -234,7 +230,7 @@ def cadastro(request):
             return redirect('cadastro')
 
         usuario = User.objects.create_user(
-            username=apelidot_usuario, first_name=nome_usuario, 
+            username=apelido_usuario, first_name=nome_usuario, 
             email=email_usuario, password=senha1_usuario
             )
         usuario.save()
@@ -259,4 +255,29 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+
+
+# FUNÇÂO
+def gerencia_multiplos_elementos(request, objeto, tipo_habilidade, personagem):
+    lista_servidor = objeto.objects.filter(personagem=personagem)
+    lista_cliente = request.POST.getlist(tipo_habilidade)
+    lista_des_cliente = request.POST.getlist(f'des_{tipo_habilidade}')
+    # print('Entrou na função')
+    # print(len(lista_servidor),len(lista_cliente))
+    # print(lista_cliente,lista_des_cliente)
+
+    #Sincronizando a lista de cliente com a do servidor, removendo oque o cliente removeu
+    if len(lista_servidor) > len(lista_cliente):
+        for item in lista_servidor:
+            if str(item) not in lista_cliente:
+                objeto.objects.get(personagem=personagem,pk=item.id).delete()       
+    
+    #Adicionando os itens do cliente ao servidor
+    for item,des in zip(lista_cliente,lista_des_cliente):
+        item,des = str(item),str(des)
+        if not item in str(lista_servidor):
+            objeto.objects.create(personagem=personagem,habilidade=item,descricao=des)
+
+# FIM FUNÇÂO
 

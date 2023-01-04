@@ -1,18 +1,82 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-</head>
-<body>
-    <h1>Início</h1>
-    <a href="{% url 'cria_ficha' %}">Criar Ficha</a>
+{% extends 'base.html' %}
+{% block base %}
+
+    <h1>DUNGEONS & DRAGONS</h1>
+    <!-- <a href="{% url 'cria_ficha' %}">Criar Ficha</a>
     <a href="{% url 'ver_ficha' %}">Ver Ficha</a>
     <a href="{% url 'cadastro' %}">Cadastro</a>
     <a href="{% url 'login_view' %}">Login</a>
-    <a href="{% url 'logout_view' %}">Logout</a>
+    <a href="{% url 'logout_view' %}">Logout</a> -->
+    <div>
+        <p style="font-size:14pt;font-weight: 700;">O RPG DUNGEONS & DRAGONS É SOBRE CONTAR
+        histórias em mundos de espadas e magia. Ele
+        compartilha elementos de jogos infantis e faz de
+        conta. Como aqueles jogos, D&D é guiado pela
+        imaginação. Trata-se de visualizar um grande
+        castelo sob o céu de uma noite tempestuosa e imaginar
+        como um aventureiro de fantasia poderia reagir aos
+        desafios que aquela cena apresenta.</p>
+    </div>
+    
+    <div style="padding: 10px 5% 10px 5%;font-size:16pt;border: 1px black solid;
+        border-radius: 12px;background-color: rgb(148, 93, 30);">
+        <h3>COMO JOGAR</h3>
+        <p>O jogo de DUNGEONS & DRAGONS se desdobra de acordo
+            com os seguintes passos.</p>
+        <p><strong>1. O Mestre descreve o ambiente.</strong><br> É o que o Mestre
+            diz aos jogadores, onde os aventureiros estão e os
+            arredores, apresentando um escopo básico de opções para
+            eles (quantas portas os conduzem para fora do cômodo, o
+            que está sobre a mesa, quem está na taverna e assim por
+            diante).
+        </p>
+        <p><strong>2. Os jogadores descrevem o que querem fazer.</strong><br>
+            Algumas vezes, um jogador fala por todo o grupo, dizendo:
+            "Nós seguimos pela porta leste", por exemplo.
+            Aventureiros diferentes tomam ações diferentes, um
+            aventureiro pode procurar por um baú do tesouro,
+            enquanto que um segundo examina um símbolo esotérico
+            cravado na parede e um terceiro mantém a vigília à
+            aproximação de monstros. Os jogadores não têm que agir em turnos, 
+            mas o Mestre escuta cada jogador e decide como resolver suas ações.
+            Algumas vezes, resolver uma ação é simples. Se um
+            aventureiro quer atravessar o cômodo e abrir a porta, o
+            Mestre pode simplesmente dizer que a porta se abre e
+            descreve o que ela revela. Mas a porta pode estar
+            trancada, o piso pode esconder uma armadilha mortal, ou
+            pode haver alguma outra circunstância mais desafiadora
+            para que o aventureiro complete a tarefa. Nesses casos, o
+            Mestre decide o que acontece, geralmente contando com a
+            jogada dos dados para determinar o resultado de uma
+            ação.</p>
+        <p><strong>3. O Mestre narra os resultados das ações dos
+            aventureiros.</strong><br>Descrever os resultados leva a outro ponto
+            de decisão, o que retorna o fluxo do jogo de volta para o
+            passo 1.
+            Esse padrão se mantém se os aventureiros estão
+            cautelosamente explorando uma ruína, conversando com
+            um príncipe corrupto, ou se presos em um combate mortal
+            contra um poderoso dragão. Em certas situações,
+            particularmente em combate, a ação é mais bem
+            estruturada e os jogadores (e o Mestre) usam turnos para
+            escolher e resolver ações.
+            Mas na maior parte do tempo, o jogo é fluido e flexível,
+            adaptando às circunstâncias da aventura. Com
+            frequência, a ação em uma aventura se ambienta na
+            imaginação dos jogadores e do Mestre, contando com as
+            descrições verbais do Mestre para imaginarem a cena.
+            Alguns Mestres gostam de usar música, arte ou efeitos de
+            sons gravados para ajudar a preparar o clima, e muitos
+            jogadores e Mestres fazem uso de vozes diferentes para os
+            vários aventureiros, monstros e outros personagens que
+            vivem no jogo. Algumas vezes, um Mestre pode dispor de
+            um mapa e usar marcadores ou miniaturas para
+            representar cada criatura envolvida na cena e ajudar os
+            jogadores a acompanhar onde cada um está.</p>
+    </div>
+
+
+
 
     <div id="dados">
         <button id="d6" onclick="resultado(6)">D6</button>
@@ -20,7 +84,6 @@
         <button id="d12" onclick="resultado(12)">D12</button>
         <button id="d20" onclick="resultado(20)">D20</button>
     </div>
-
     <div id="resultado"></div>
 
     <script>
@@ -38,5 +101,5 @@
             campo.innerText = valor
         }
     </script>
-</body>
-</html>
+
+{% endblock %}

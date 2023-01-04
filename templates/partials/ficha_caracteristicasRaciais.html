@@ -1,0 +1,22 @@
+<div name='area_caracteristicas_raciais' 
+    style="display: inline-block; margin-right: 10px; border-color: black; border:2px solid black ; padding: 10px;">
+    <h3>Caracteísticas Raciais</h3>
+    <table id="tabela_c_racias">
+        <tr>
+            <th>Caracteísticas Raciais
+                <button type="button" id="rem_c_racias" onclick="remove_item('tabela_c_racias')">-</button>
+                <button type="button" id="add_c_racias" onclick="add_item('tabela_c_racias','cara_raciais_classe')" >+</button>
+            </th>
+            {% for cr in cara_raciais %}
+            </tr>
+                <th>
+                    <div class="popup" onmouseover="myFunction( '{{cr}}' )">
+                        <input type="text" name="cara_raciais_classe" id="cara_raciais_classe" value="{{cr.habilidade}}">
+                        <input type="hidden" name="des_cara_raciais_classe" id="des_cara_raciais_classe" value="{{cr.descricao}}">
+                        <span class="popuptext" id="{{cr}}">{{cr.descricao}}</span>
+                    </div>
+                </th>
+            </tr>
+            {% endfor %}
+    </table>
+</div>

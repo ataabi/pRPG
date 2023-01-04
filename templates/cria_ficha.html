@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block base %}
+    {% load static %}
     <form method="POST" action="{% url 'cria_ficha' %}">
         {% csrf_token %}
-        <div name="area_base">
+        <!-- <div name="area_base">
             <h3>Informações Básicas</h3>
             <label>Nome Personagem<input type="text" name="nome_personagem"></label>
             <label>Raça<input type="text" name="raca"></label>
@@ -11,7 +12,20 @@
             <label>Nível<input type="number" name="nivel"></label>
             <br>
             <label>Antecedente<input type="text" name="antecedente"></label>
-            <label>Tendência<input type="text" name="tendencia"></label>
+            
+            <label>Tendência
+                <select name='tendencia'>
+                    <option value="Leal e Bom">Leal e Bom</option>
+                    <option value="Leal e Netro">Leal e Netro</option>
+                    <option value="Leal e Mal">Leal e Mal</option>
+                    <option value="Neutro e Bom">Neutro e Bom</option>
+                    <option value="Neutro">Neutro</option>
+                    <option value="Neutro e Mal">Neutro e Mal</option>
+                    <option value="Caótico e Bom">Caótico e Bom</option>
+                    <option value="Caótico e Neutro">Caótico e Neutro</option>
+                    <option value="Caótico e Mal">Caótico e Mal</option>
+                </select>
+            </label>
             <label>Divindade<input type="text" name="divindade"></label>
             <label>Terra Natal<input type="text" name="terra_natal"></label>
             <label>Iniciativa<input type="number" name="iniciativa"></label>
@@ -25,8 +39,8 @@
             <label>Dados de Vida<input type="number" name="dados_vida"></label>
             <br>
             <label>Idiomas<input type="text" name="idiomas"></label>
-        </div>
-
+        </div> -->
+        {% include 'partials/ficha_base.html' %}
         <div name="habilidades">
             <h3>Habilidades</h3>
             <label>Força<input type="number" name="forca"> </label>
@@ -239,6 +253,7 @@
                     </th>
                 </tr>
                     <th><input type="text" name="talentos_classe" id="talentos_classe"></th>
+                    <th><input type="text" name="des_talentos_classe" id="des_talentos_classe"></th>
                 </tr>
             </table>
         </div>
@@ -254,6 +269,7 @@
                     </th>
                 </tr>
                     <th><input type="text" name="cara_raciais_classe" id="cara_raciais_classe"></th>
+                    <th><input type="text" name="des_cara_raciais_classe" id="des_cara_raciais_classe"></th>
                 </tr>
             </table>
         </div>

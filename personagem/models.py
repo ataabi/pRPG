@@ -3,9 +3,6 @@ from django.db import models
 # Create your models here.
 
 class BasePersonagem(models.Model):
-    TENDENCIAS = [('LB','Leal e Bom'),('NB','Neutro e Bom')]
-
-
     # Informações Basicas
     nome_jogador = models.CharField(max_length=30)
     nome_personagem = models.CharField(max_length=30)
@@ -14,7 +11,7 @@ class BasePersonagem(models.Model):
     arquetipo = models.CharField(max_length=30,default='')
     nivel = models.IntegerField(default=1)
     antecedente = models.CharField(max_length=15)
-    tendencia = models.CharField(max_length=20, choices=TENDENCIAS)
+    tendencia = models.CharField(max_length=20)
     divindade = models.CharField(max_length=30, default='')
     terra_natal = models.CharField(max_length=30, default='')
     iniciativa = models.IntegerField(default=0)
@@ -63,6 +60,10 @@ class BasePersonagem(models.Model):
     @property
     def sabedoria_passiva(self):
         return int(10+self.mod_sabedoria)
+
+    @property
+    def limite_carga(self):
+        return int(7.5*self.forca)
 
     #Testes de Resistencia
     
@@ -301,18 +302,39 @@ class HabilidadesClasse(models.Model):
 
 class TalentosClasse(models.Model):
     personagem = models.ForeignKey('BasePersonagem', on_delete=models.CASCADE)
-    talento = models.CharField(max_length=30)
+    habilidade = models.CharField(max_length=30)
     descricao = models.TextField(max_length=999)
 
     def __str__(self):
-        return self.talento
+        return self.habilidade
 
 class CaracteristicasRaciaisClasse(models.Model):
     personagem = models.ForeignKey('BasePersonagem', on_delete=models.CASCADE)
-    caracteristica = models.CharField(max_length=30)
+    habilidade = models.CharField(max_length=30)
     descricao = models.TextField(max_length=999)
 
     def __str__(self):
-        return self.caracteristica
+        return self.habilidade
 
+'''
+Moeda         pc     pp    pe    po     pl
+Cobre    (pc) 1      1/10  1/50  1/100  1/1.000
+Prata    (pp) 10     1     1/5   1/10   1/100
+Electro  (pe) 50     5     1     1/2    1/20
+Ouro     (po) 100    10    2     1      1/10
+Platina  (pl) 1.000  100   20    10     1
+'''
+
+class InventarioPersonagem(models.Model):
+    MOEDAS = [('pc','Cobre'), ('pp','Prata'), ('pe','Electro'), ('po','Ouro'), ('pl','Platina')]
+    personagem = models.ForeignKey('BasePersonagem', on_delete=models.CASCADE)
+    item_id = models.IntegerField()
+    quantidade = models.IntegerField(default=1, null=True, blank=True)
+    nome_item = models.CharField(max_length=30)
+    valor = models.IntegerField(default=0)
+    moeda = models.CharField(max_length=2, choices=MOEDAS)
+    peso = models.FloatField(default=0, null=True, blank=True)
+    descricao = models.TextField(default='', null=True, blank=True)
+    propriedades = models.TextField(default='', null=True, blank=True)
+    habilidade = models.TextField(default='', null=True, blank=True)
     

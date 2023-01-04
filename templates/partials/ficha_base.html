@@ -1,0 +1,36 @@
+<div name="area_base" style="margin: 2%;">
+    <h3>Informações Básicas</h3>
+    <p>ID:{{base.id}}</p>
+    <label>Nome Personagem<input type="text" name="nome_personagem" value="{{base.nome_personagem}}"></label>
+    <label>Raça<input type="text" name="raca" value="{{base.raca}}"></label>
+    <label>Classe<input type="text" name="classe" value="{{base.classe}}"></label>
+    <label>Arquetipo<input type="text" name="arquetipo" value="{{base.arquetipo}}"></label>
+    <label>Nível<input type="number" name="nivel" value="{{base.nivel}}"></label>
+    <label>Antecedente<input type="text" name="antecedente" value="{{base.antecedente}}"></label>
+    <label>Tendência
+        <select name='tendencia' value="" >
+            <option value="{{base.tendencia}}">{{base.tendencia}}</option>
+            <option value="Leal e Netro">Leal e Netro</option>
+            <option value="Leal e Mal">Leal e Mal</option>
+            <option value="Neutro e Bom">Neutro e Bom</option>
+            <option value="Neutro">Neutro</option>
+            <option value="Neutro e Mal">Neutro e Mal</option>
+            <option value="Caótico e Bom">Caótico e Bom</option>
+            <option value="Caótico e Neutro">Caótico e Neutro</option>
+            <option value="Caótico e Mal">Caótico e Mal</option>
+        </select>
+    </label>
+
+    <label>Divindade<input type="text" name="divindade" value="{{base.divindade}}"></label>
+    <label>Terra Natal<input type="text" name="terra_natal" value="{{base.terra_natal}}"></label>
+    <label>Iniciativa<input type="number" name="iniciativa" value="{{base.iniciativa}}"></label>
+    <label>C.A<input type="number" name="c_a" value="{{base.c_a}}"></label>
+    <br>
+    <label>Deslocamento<input type="number" name="deslocamento" value="{{base.deslocamento}}"></label>
+    <label>Inspiração<input type="number" name="inspiracao" value="{{base.inspiracao}}"></label>
+    <label>Proficiencia<input type="number" name="proficiencia" value="{{base.proficiencia}}"></label>
+    <label>PV Maximo<input type="number" name="pv_maximo" value="{{base.pv_maximo}}"></label>
+    <label>PV Atual<input type="number" name="pv_atual" value="{{base.pv_atual}}"></label>
+    <label>Dados de Vida<input type="number" name="dados_vida" value="{{base.dados_vida}}"></label>
+    <label>Idiomas<input type="text" name="idiomas" value="{{base.idiomas}}"></label>
+</div>

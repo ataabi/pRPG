@@ -1,0 +1,22 @@
+<div name='area_talentos' 
+    style="display: inline-block; margin-right: 10px; border:2px solid black ; padding: 10px;">
+    <h3>Talentos</h3>
+    <table id="tabela_talentos">
+        <tr>
+            <th>Talentos 
+                <button type="button" id="rem_talentos" onclick="remove_item('tabela_talentos')">-</button> 
+                <button type="button" id="add_talentos" onclick="add_item('tabela_talentos','talentos_classe')">+</button>
+            </th>
+        {% for talento in talentos%}    
+            </tr>
+                <th>
+                    <div class="popup" onmouseover="myFunction( '{{talento}}' )">
+                        <input type="text" name="talentos_classe" id="talentos_classe" value="{{talento.habilidade}}">
+                        <input type="hidden" name="des_talentos_classe" id="des_talentos_classe" value="{{talento.descricao}}">
+                        <span class="popuptext" id="{{talento}}">{{talento.descricao}}</span>
+                    </div>
+                </th>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

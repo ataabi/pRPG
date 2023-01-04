@@ -1,0 +1,37 @@
+<div name="area_inventario" style="display:inline;position: relative;">
+    <form method="POST" action="{% url 'loja' %}"> 
+        {% csrf_token %}  
+
+        {% if base.id %}
+            <input type="hidden" name="pid" value="{{ base.id }}"> 
+        {% else %}
+            <input type="hidden" name="pid" value="{{ pid }}">
+        {% endif %}
+
+        <p>PID : {{ pid }}</p>
+        <table id='lista_compra' name='lista_compra' style="background-color:bisque; border:2px solid black; display: inline-block;" >
+            <tr>
+                <th>Nome</th>
+                <th>Quant.</th>
+                <th>valor</th>
+                <th>Peso</th>
+                <th>Ações</th>
+            </tr>
+            {% for item in inventario%}
+                <tr id='lc_{{item.nome_item}}' name='itemPegar'>
+                    <td>
+                        <input style="border:3px solid black;background: transparent; " type="text" name="ItemNome" id="{{item.nome_item}}_N" value="{{item.nome_item}}">
+                    </td>
+                    <td>
+                        <input style="border:3px solid black;background: transparent; width:25px;" type="number" name="itemQuantidade" id="{{item.nome_item}}_Q" value="{{item.quantidade}}">
+                    </td>
+                    <td>{{item.valor}}</td>
+                    <td>{{item.peso}} kg</td>
+                    <input type="hidden" id="moeda" value="{{item.moeda}}">`
+                    <input type="hidden" name='iid' value="{{item.item_id}}">`
+                </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Comprar">
+    </form>
+</div>
