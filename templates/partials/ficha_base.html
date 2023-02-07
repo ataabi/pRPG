@@ -1,14 +1,24 @@
-<div name="area_base" style="margin: 2%;">
-    <h3>Informações Básicas</h3>
-    <p>ID:{{base.id}}</p>
-    <label>Nome Personagem<input type="text" name="nome_personagem" value="{{base.nome_personagem}}"></label>
-    <label>Raça<input type="text" name="raca" value="{{base.raca}}"></label>
-    <label>Classe<input type="text" name="classe" value="{{base.classe}}"></label>
-    <label>Arquetipo<input type="text" name="arquetipo" value="{{base.arquetipo}}"></label>
-    <label>Nível<input type="number" name="nivel" value="{{base.nivel}}"></label>
-    <label>Antecedente<input type="text" name="antecedente" value="{{base.antecedente}}"></label>
-    <label>Tendência
-        <select name='tendencia' value="" >
+<div id="area_base">
+    <!-- <h3>Informações Básicas</h3> -->
+    <!-- <p>ID:{{base.id}}</p> -->
+    {% if base.nome_personagem %}
+    <input type="hidden" name="nome_personagem" value="{{base.nome_personagem}}">
+    <h2>{{base.nome_personagem}}</h2>
+    {% else %}
+    <label class="texto">Nome 
+        <input type="text" name="nome_personagem" value="{{base.nome_personagem}}">
+    </label>
+    {%endif%}
+    <label class="texto">Classe<input type="text" name="classe" value="{{base.classe}}"></label>
+    <label class="numero">Nível<input type="number" name="nivel"
+        {% if base.nivel %}value="{{base.nivel}}" {%else%} value="0"{%endif%}></label>
+    <label class="texto">Arquetipo<input type="text" name="arquetipo" value="{{base.arquetipo}}"></label>
+
+    <label class="texto">Raça<input type="text" name="raca" value="{{base.raca}}"></label>
+    
+    <label class="texto">Antecedente<input type="text" name="antecedente" value="{{base.antecedente}}"></label>
+    <label class="texto">Tendência
+        <select name='tendencia' value="">
             <option value="{{base.tendencia}}">{{base.tendencia}}</option>
             <option value="Leal e Netro">Leal e Netro</option>
             <option value="Leal e Mal">Leal e Mal</option>
@@ -21,16 +31,24 @@
         </select>
     </label>
 
-    <label>Divindade<input type="text" name="divindade" value="{{base.divindade}}"></label>
-    <label>Terra Natal<input type="text" name="terra_natal" value="{{base.terra_natal}}"></label>
-    <label>Iniciativa<input type="number" name="iniciativa" value="{{base.iniciativa}}"></label>
-    <label>C.A<input type="number" name="c_a" value="{{base.c_a}}"></label>
-    <br>
-    <label>Deslocamento<input type="number" name="deslocamento" value="{{base.deslocamento}}"></label>
-    <label>Inspiração<input type="number" name="inspiracao" value="{{base.inspiracao}}"></label>
-    <label>Proficiencia<input type="number" name="proficiencia" value="{{base.proficiencia}}"></label>
-    <label>PV Maximo<input type="number" name="pv_maximo" value="{{base.pv_maximo}}"></label>
-    <label>PV Atual<input type="number" name="pv_atual" value="{{base.pv_atual}}"></label>
-    <label>Dados de Vida<input type="number" name="dados_vida" value="{{base.dados_vida}}"></label>
-    <label>Idiomas<input type="text" name="idiomas" value="{{base.idiomas}}"></label>
+    <label class="texto">Divindade<input type="text" name="divindade" value="{{base.divindade}}"></label>
+    <label class="texto">Terra Natal<input type="text" name="terra_natal" value="{{base.terra_natal}}"></label>
+    <label class="numero">Iniciativa<input type="number" name="iniciativa"
+        {% if base.iniciativa %}value="{{base.iniciativa}}" {%else%} value="0"{%endif%}></label>
+    <label class="numero">C.A<input type="number" name="c_a"
+        {% if base.c_a %}value="{{base.c_a}}" {%else%} value="0"{%endif%}></label>
+    <label class="numero">Deslocamento<input type="number" name="deslocamento"
+        {% if base.deslocamento %}value="{{base.deslocamento}}" {%else%} value="0"{%endif%}></label>
+    <label class="numero">Inspiração<input type="number" name="inspiracao"
+        {% if base.inspiracao %}value="{{base.inspiracao}}" {%else%} value="0"{%endif%}></label>
+    <label class="numero">Proficiencia<input type="number" name="proficiencia"
+        {% if base.proficiencia %}value="{{base.proficiencia}}" {%else%} value="0"{%endif%}></label>
+    <label class="numero">PV Maximo<input type="number" name="pv_maximo" 
+        {% if base.pv_maximo %}value="{{base.pv_maximo}}" {%else%} value="0"{%endif%}></label>
+    <label class="numero">PV Atual<input type="number" name="pv_atual"
+        {% if base.pv_atual %}value="{{base.pv_atual}}" {%else%} value="0"{%endif%}></label>
+    <label class="numero">Dados de Vida<input type="number" name="dados_vida"
+        {% if base.dados_vida %}value="{{base.dados_vida}}" {%else%} value="0"{%endif%}></label>
+    <label class="texto">Idiomas<input type="text" name="idiomas" wrap="hard"
+        {% if base.idiomas %} value="{{base.idiomas}}" {%endif%}></label>
 </div>

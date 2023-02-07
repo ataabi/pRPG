@@ -1,80 +1,67 @@
-<div name="area_teste_resistencia" >
+<div id="area_teste_resistencia" >
     <h3>Teste De Resistencia</h3>
-    <table>
+    <table class="tabela">
         <tr>
             <th>TR</th>
             <th>Prof</th>
             <th>Outros</th>
+            {% if base %}
             <th>Total</th>
-        </tr>
-        <tr>
-            <th>FOR</th>
-            {% if base.res_for %}
-                <th><input type="checkbox" name="res_for" id="res_for" checked value="True"></th>
-            {% else %}
-                <th><input type="checkbox" name="res_for" id="res_for" value="True"></th>
             {% endif %}
-            
-            <th><input type="number" name="ores_for" id="ores_for" value="{{base.ores_for}}"></th>
-            <th><p>{{base.valor_res_for}}</p></th>
         </tr>
         <tr>
-            <th>DES</th>
-                {% if base.res_des %}
-                    <th><input type="checkbox" name="res_des" id="res_des" checked value="True"></th>
-                {% else %}
-                    <th><input type="checkbox" name="res_des" id="res_des" value="True"></th>
-                {% endif %}
-            <th><input type="number" name="ores_des" id="ores_des" value="{{base.ores_des}}"></th>
-            <th><p>{{base.valor_res_des}}</p></th>
+            <td>FOR</td>
+            <td><input type="checkbox" name="res_for" id="res_for" 
+                {% if base.res_for %} checked {% endif %} value="True"></td>
+            <td><input type="number" name="ores_for" id="ores_for" 
+                {% if base.res_for %} value="{{base.ores_for}}" 
+                {% else %} value="0" {% endif %}></td>
+            <td ><p>{{base.valor_res_for}}</p></td>
         </tr>
         <tr>
-            <th>CONS</th>
-            <th>
-                {% if base.res_cons %}
-                    <input type="checkbox" name="res_cons" id="res_cons" checked value="True">
-                {% else %}
-                    <input type="checkbox" name="res_cons" id="res_cons" value="True">
-                {% endif %}
-            </th>
-            <th><input type="number" name="ores_cons" id="ores_cons" value="{{base.ores_cons}}"></th>
-            <th><p>{{base.valor_res_cons}}</p></th>
+            <td>DES</td>
+            <td><input type="checkbox" name="res_des" id="res_des" 
+                {% if base.res_des %} checked {% endif %} value="True"></td>
+            <td><input type="number" name="ores_des" id="ores_des" 
+                {% if base.ores_des %} value="{{base.ores_des}}" 
+                {% else %} value="0" {% endif %}></td>
+            <td><p>{{base.valor_res_des}}</p></td>
         </tr>
         <tr>
-            <th>INT</th>
-            <th>
-                {% if base.res_int %}
-                    <input type="checkbox" name="res_int" id="res_int" checked value="True">
-                {% else %}
-                    <input type="checkbox" name="res_int" id="res_int" value="True">
-                {% endif %}
-            </th>
-            <th><input type="number" name="ores_int" id="ores_int" value="{{base.ores_int}}"></th>
-            <th><p>{{base.valor_res_int}}</p></th>
+            <td>CONS</td>
+            <td><input type="checkbox" name="res_cons" id="res_cons" 
+                    {% if base.res_cons %} checked {% endif %} value="True"></td>
+            <td><input type="number" name="ores_cons" id="ores_cons" 
+                {% if base.ores_cons %} value="{{base.ores_cons}}" 
+                {% else %} value="0" {% endif %}></td>
+            <td><p>{{base.valor_res_cons}}</p></td>
         </tr>
         <tr>
-            <th>SAB</th>
-            <th>
-                {% if base.res_sab %}
-                    <input type="checkbox" name="res_sab" id="res_sab" checked value="True">
-                {% else %}
-                    <input type="checkbox" name="res_sab" id="res_sab" value="True">
-                {% endif %}
-            </th>
-            <th><input type="number" name="ores_sab" id="ores_sab" value="{{base.ores_sab}}"></th>
-            <th><p>{{base.valor_res_sab}}</p></th>
+            <td>INT</td>
+            <td><input type="checkbox" name="res_int" id="res_int"
+                    {% if base.res_int %} checked {% endif %} value="True"></td>
+            <td><input type="number" name="ores_int" id="ores_int" 
+                {% if base.ores_int %} value="{{base.ores_int}}" 
+                {% else %} value="0" {% endif %}></td>
+            <td><p>{{base.valor_res_int}}</p></td>
         </tr>
         <tr>
-            <th>CAR</th>
-            <th>
-                {% if base.res_car %}
-                    <input type="checkbox" name="res_car" id="res_car" checked value="True">
-                {% else %}
-                    <input type="checkbox" name="res_car" id="res_car" value="True">
-                {% endif %}
-            </th>
-            <th><input type="number" name="ores_car" id="ores_car" value="{{base.ores_car}}"></th>
-            <th><p>{{base.valor_res_car}}</p></th>
+            <td>SAB</td>
+            <td><input type="checkbox" name="res_sab" id="res_sab" 
+                {% if base.res_sab %} checked {% endif %} value="True"></td>
+            <td><input type="number" name="ores_sab" id="ores_sab" 
+                {% if base.ores_sab %} value="{{base.ores_sab}}" 
+                {% else %} value="0" {% endif %}></td>
+            <td><p>{{base.valor_res_sab}}</p></td>
+        </tr>
+        <tr>
+            <td>CAR</td>
+            <td><input type="checkbox" name="res_car" id="res_car" 
+                {% if base.res_car %} checked {% endif %} value="True"></td>
+            <td><input type="number" name="ores_car" id="ores_car" 
+                {% if base.ores_car %} value="{{base.ores_car}}" 
+                {% else %} value="0" {% endif %}></td>
+            <td><p>{{base.valor_res_car}}</p></td>
         </tr>
     </table>
 </div>

@@ -1,5 +1,14 @@
 from django.db import models
 
+#Moedas do Personagem
+# class MoedasPersonagem(models.Model):
+#     personagem =  models.ForeignKey('BasePersonagem', on_delete=models.CASCADE)
+#     pc = models.IntegerField(default=0)
+#     pp = models.IntegerField(default=0)
+#     pe = models.IntegerField(default=0)
+#     po = models.IntegerField(default=0)
+#     pl = models.IntegerField(default=0)
+
 # EQUIPAMENTO DE AVENTURA
 class EquipamentoAventura(models.Model):
     MOEDAS = [('pc','Cobre'), ('pp','Prata'), ('pe','Electro'), ('po','Ouro'), ('pl','Platina')]

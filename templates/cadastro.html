@@ -1,22 +1,38 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block base %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 
-    
-    <form method="POST" action="{% url 'cadastro' %}">
-        {% csrf_token %}
-        <label>Nome do Usuario:<input type="text" name="nome_usuario" id="nome_usuario"></label>
-        <label>Nick:<input type="text" name="apelido_usuario" id="apelido_usuario"></label>
-        <label>Email:<input type="email" name="email_usuario" id="email_usuario"></label>
-        <br>
-        <label>Senha:<input type="password" name="senha1_usuario" id="senha1_usuario"></label>
-        <label>Confirmar Senha:<input type="password" name="senha2_usuario" id="senha2_usuario"></label>
-        <input type="submit" value="Entrar">
-    </form>   
     {% if messages %}
-    {% for message in messages %}
-        <div>
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endif %} 
+        {% for message in messages %}
+            <div class="divMensagem">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %} 
+
+    <div class="divFormulario">
+       <form method="POST" action="{% url 'cadastro' %}">
+        {% csrf_token %}
+            <label class="caixa">
+                Nome do Usuario <input type="text" name="nome_usuario" id="nome_usuario" class="caixa_texto">
+            </label>
+            <label class="caixa">
+                Nick <input type="text" name="apelido_usuario" id="apelido_usuario" class="caixa_texto">
+            </label>
+            <label class="caixa">
+                Email <input type="email" name="email_usuario" id="email_usuario" class="caixa_texto">
+            </label>
+            <label class="caixa">
+                Senha <input type="password" name="senha1_usuario" id="senha1_usuario" class="caixa_texto">
+            </label>
+            <label class="caixa">
+                Confirmar Senha <input type="password" name="senha2_usuario" id="senha2_usuario" class="caixa_texto">
+            </label>
+            
+            <input type="submit" value="Cadastrar" class="botao">
+        </form>   
+        
+    </div>
+    
 {% endblock%}

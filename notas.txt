@@ -1,0 +1,4 @@
+Colocar imagem do Personagem na ficha 
+Aba para armas
+ para por o dano da arma mais os bonus e tal
+ e rolar o ataque em 1 click so

@@ -1,27 +1,33 @@
-<div name="area_habilidade_classe" 
-    style="display: inline-block; 
-        margin-right: 10px; 
-        border:2px solid black ; 
-        padding: 10px;">
-    <h3>Habilidades De Classe</h3>
-    <table id="tabela_h_classe">
-        <tr>
-            <th>H.Classe
-                <button type="button" id="rem_h_classe" onclick="remove_item('tabela_h_classe')">-</button>
-                <button type="button" id="add_h_classe" onclick="add_item('tabela_h_classe','habilidade_classe')">+</button>
-            </th>
-        </tr>
+<div id="area_habilidades_classe" class="div_habilidades">
+    <h3>Habilidades De Classe </h3>
+    <table id="tabela_h_classe" class="tabela_especial">
+        {% if not habilidades %}
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+            </tr>
+        {% endif %}
+        {% if habilidades %}
             {% for hc in habilidades %}
                 </tr>
-                    <th>
+                    <td>
                         <div class="popup" onmouseover="myFunction( '{{hc}}' )">
                             <input type="text" name="habilidade_classe" id="habilidade_classe" value="{{hc.habilidade}}">
                             <input type="hidden" name="des_habilidade_classe" id="des_habilidade_classe" value="{{hc.descricao}}">
                             <span class="popuptext" id="{{hc}}">{{hc.descricao}}</span>
                         </div>
-                    </th>
+                    </td>
                 </tr>
             {% endfor %}
+        {% else %}
+            <tr>
+                <td><input type="text" name="habilidade_classe" id="habilidade_classe"></td>
+                <td><input type="text" name="des_habilidade_classe" id="des_habilidade_classe"></td>
+            </tr>
+        {% endif %}
         </tr>
     </table>
+    <br>
+    <button type="button" id="rem_h_classe" class="botao" onclick="remove_habilidade('tabela_h_classe')">-</button>
+    <button type="button" id="add_h_classe" onclick="add_habilidade('tabela_h_classe','habilidade_classe')">+</button>
 </div>

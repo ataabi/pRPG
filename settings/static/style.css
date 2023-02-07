@@ -1,0 +1,196 @@
+body {
+    background-color: rgb(68, 39, 2);
+}
+
+.banner {
+    text-align: center;
+    padding: 10px;
+    vertical-align: baseline;
+    background-color: goldenrod;
+    height: 40px;
+    border-radius: 1pc 1pc 0 0;
+}
+
+/* barra de navegação do site */
+.navegador {
+    border: 2px solid rgb(129, 109, 57);
+    border-radius: 0 0 1pc 1pc ;
+    padding: 5px 2% 5px 2%;
+    margin: auto ;
+    text-align: center;
+    text-decoration: none;
+    background-color: black
+}
+.navegador a {
+    font-size: 18px;
+    font-weight: 800;
+    text-decoration: none;
+    color: goldenrod;
+    margin: 10px;
+}
+
+/* Remove as setinhas dos input tipo button */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Formulario de Login e Cadastro */
+.divMensagem {
+    background-color: red;
+    font-weight: bold;
+    font-size: 18px;
+    border: 3px solid black;
+    border-radius: 12px;
+    text-align: center;
+    width: 80%;
+    margin: 1% auto;
+}
+.divFormulario {
+    /* background-color: pink; */
+    display: block;
+    width: 300px;
+    margin:auto ;
+    padding: 20px;
+}
+.divFormulario label {
+    /* background-color: blue; */
+    font-weight: bold;
+    font-size: 16px;
+    display: block;
+    margin: 10px 0;
+
+}
+.divFormulario input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid black;
+    width: 100%;
+}
+.divFormulario input[type=submit] {
+    background-color: goldenrod;
+    border: none;
+    border-bottom: 2px solid black;
+    width: 100%;
+}
+.divFormulario input:hover {
+    transform: scale(1.05);
+    font-weight: bold;
+    background-color: white;
+    border: 2px solid black;
+}
+
+input[type=select] {
+
+}
+
+/* Loja de itens */
+.select-personagem {
+    display: block;
+    margin: 15px auto;
+    text-align: center;
+}
+
+.bloco-loja {
+    /* background-color: aquamarine; */
+    display: inline-block;
+    vertical-align: top;
+    margin: auto 1%;
+    width: 45%;
+}
+.bloco-loja:nth-child(2) {
+    float: right;
+    /* text-align: end; */
+}
+.tabela-loja {
+    display: inline-block;
+    background-color: goldenrod;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 20px auto;
+    padding: 10px;
+}
+.tabela-loja td, .tabela-loja input {
+    color: whitesmoke;
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 3px;
+    font-size: 16px;
+}
+
+.tabela-loja td:nth-child(2), 
+.tabela-loja th:first-child {
+    text-align: center; 
+}
+.tabela-loja input{
+    background-color: transparent;
+    border:none;
+}
+.tabela-loja input[type=number]{
+    max-width: 35px;
+    text-align: center;
+}
+.tabela-loja input[type=submit]{
+    display: inline-block;
+}
+.tabela-loja:last-child {
+    float: right;
+}
+
+/* Popup container */
+.popup {
+    /* position: relative; */
+    display: inline-block;
+    cursor: pointer;
+    width: 150px;
+    padding-top: 1px;
+    }
+    /* The actual popup (appears on top) */
+    .popup .popuptext {
+    visibility: hidden;
+    width: 600px;
+    background-color: peachpuff;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    border: 5px solid black;
+    border-radius: 6px;
+    padding: 12px;
+    position: absolute;
+    /* z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin:1%;
+    margin-left: -80px; */
+    }
+
+    /* Popup arrow */
+    .popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+    }
+
+    /* Toggle this class when clicking on the popup container (hide and show the popup) */
+    .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+    }
+
+    /* Add animation (fade in the popup) */
+    @-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+    }
+
+    @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+    }

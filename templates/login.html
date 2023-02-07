@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 {% block base %}
-    <form action="{% url 'login_view' %}" method="post">
+
+    <div class="divFormulario">
+        <form action="{% url 'login_view' %}" method="post">
         {%csrf_token%}
-        <label>Nome:<input type="text" name="nome_usuario" id="nome_usuario"></label>
-        <label>Senha:<input type="password" name="senha_usuario" id="senha_usuario"></label>
-        <input type="submit" value="Entrar">
-    </form>
+            <label class="caixa">Nome <input type="text" name="nome_usuario" id="nome_usuario" class="caixa_texto"></label>
+            <label class="caixa">Senha <input type="password" name="senha_usuario" id="senha_usuario" class="caixa_texto"></label>
+            <input type="submit" value="Entrar" class="botao">
+        </form>
+    </div>
+    
 {%endblock%}

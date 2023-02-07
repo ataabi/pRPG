@@ -1,89 +1,94 @@
 
 {% extends 'base.html' %}
 {% block base %}
-    <div style="display: inline-block;">
-        <table id="tabela_inventario" 
-            style="background-color:bisque; border:2px solid black; display: inline-block;" >
-            <tr>
-                <th>Nome</th>
-                <th>Valor</th>
-                <th>Peso</th>
-                <th>Ações</th>
-            </tr>
-            {% for item in itens%}
-                <tr id="{{item.nome}}">
-                    <td style=" border:3px solid black;">
-                        <div class="popup" onclick="funcPopup( 'pop_{{item.nome}}' )">
-                            <span>{{item.nome}}</span>
-                            <span class="popuptext" id="pop_{{item.nome}}">{{item.descricao}}</span>
-                        </div>
-                    </td>
-                    <td name="valor" style=" border:3px solid black;">{{item.valor}} {{item.moeda}}</td>
-                    <td name="peso" style=" border:3px solid black;">{{item.peso}} kg</td>
-                    <td style=" border:3px solid black;">
-                        <button type="button" id="rem_item" onclick="remove_item('{{item.nome}}')">-</button>
-                        <button type="button" id="add_item" onclick="add_item('{{item.nome}}')">+</button>
-                    </td>
-                    <input type="hidden" id="moeda" value="{{item.moeda}}">
-                    <input type="hidden" id="{{item.nome}}_iid" value="{{item.id}}">
-                </tr>
-            {%endfor%}
-        </table>
-    </div>
-
-    {% if pid %}
-
-    <div name='carinho_compras' style="display: inline-block;vertical-align: top;">
-        <h3>Lista de Compras </h3>
-        {% include 'partials/ficha_inventario.html' %}
-        <!-- <form method="POST" action="{% url 'loja' %}"> 
-            {% csrf_token %}  
-            <input type="hidden" name="pid" value="{{ pid }}"> 
-            <p>PID : {{ pid }}</p>
-            <table id='lista_compra' name='lista_compra' style="background-color:bisque; border:2px solid black; display: inline-block;" >
-                <tr>
-                    <th>Nome</th>
-                    <th>Quant.</th>
-                    <th>valor</th>
-                    <th>Peso</th>
-                    <th>Ações</th>
-                </tr>
-                {% for item in inventario%}
-                    <tr id='lc_{{item.nome_item}}' name='itemPegar'>
-                        <td>
-                            <input style="border:3px solid black;background: transparent; " type="text" name="ItemNome" id="{{item.nome_item}}_N" value="{{item.nome_item}}">
-                        </td>
-                        <td>
-                            <input style="border:3px solid black;background: transparent; width:25px;" type="number" name="itemQuantidade" id="{{item.nome_item}}_Q" value="{{item.quantidade}}">
-                        </td>
-                        <td>{{item.valor}}</td>
-                        <td>{{item.peso}} kg</td>
-                        <input type="hidden" id="moeda" value="{{item.moeda}}">`
-                        <input type="hidden" name='iid' value="{{item.item_id}}">`
-                    </tr>
-                {% endfor %}
-            </table>
-            <input type="submit" value="Comprar">
-        </form> -->
-    </div>
-
-    {% else %}
-    
-    <div>
+    <div class="select-personagem">
         <h4>Selecione um personagem:</h4>
-        <form>
-            <select name="pid" id="pid">
+        <form >
+            <select name="personagem" id="personagem">
             {% for personagem in personagens %}
-                <option value="{{personagem.id}}">{{personagem.nome_personagem}}</option>
+                <option value="{{personagem.nome_personagem}}">{{personagem.nome_personagem}}</option>
             {%endfor%}
             </select>
             <input type="submit" value="Selecionar">
         </form>
     </div>
 
-    {% endif %}
+        <div class="loja">
+            <div class="bloco-loja" >
+                <table id="tabela_inventario" class="tabela-loja">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                        <th>Peso</th>
+                        <th>Ações</th>
+                    </tr>
+                    {% for item in itens%}
+                        <tr id="{{item.nome}}">
+                            <td>
+                                <div class="popup" onclick="funcPopup( 'pop_{{item.nome}}' )">
+                                    <span>{{item.nome}}</span>
+                                    <span class="popuptext" id="pop_{{item.nome}}">{{item.descricao}}</span>
+                                </div>
+                            </td>
+                            <td name="valor">{{item.valor}} {{item.moeda}}</td>
+                            <td name="peso">{{item.peso}} kg</td>
+                            <td>
+                                <button type="button" onclick="remove_item('{{item.nome}}')">-</button>
+                                <button type="button" onclick="add_item('{{item.nome}}')">+</button>
+                            </td>
+                            <input type="hidden" id="moeda" value="{{item.moeda}}">
+                            <input type="hidden" id="{{item.nome}}_iid" value="{{item.id}}">
+                        </tr>
+                    {%endfor%}
+                </table>
+            </div>
+
+            {% if personagem %}
+            <div name='carinho_compras' class="bloco-loja" >
+                <form method="POST" action="{% url 'loja' %}"> 
+                    {% csrf_token %}  
+                    <input type="hidden" name="personagem" value="{{ personagem }}">
+                    <table id='lista_compra' name='lista_compra'  class="tabela-loja" >
+                        <tr>
+                            <th>Nome</th>
+                            <th>Quant.</th>
+                            <th>valor</th>
+                            <th>Peso</th>
+                            <th>Ações</th>
+                        </tr>
+
+                        {% for item in inventario%}
+                            <tr id='lc_{{item.nome_item}}' name='itemPegar'>
+                                <td>
+                                    <div class="popup" onclick="funcPopup( 'pop_{{item.nome}}' )">
+                                        <span>{{item.nome_item}}</span>
+                                        <span class="popuptext" id="pop_{{item.nome}}">{{item.descricao}}</span>
+                                    </div>
+                                    <!-- <input type="text" name="ItemNome" id="{{item.nome_item}}_N" value="{{item.nome_item}}"> -->
+                                </td>
+                                <td>
+                                    <input type="number" name="itemQuantidade" id="{{item.nome_item}}_Q" value="{{item.quantidade}}">
+                                </td>
+                                <td>{{item.valor}}</td>
+                                <td>{{item.peso}} kg</td>
+                                <td><button type="button" onclick="remove_item('{{item.nome_item}}')">-</button></td>
+                                <input type="hidden" id="moeda" value="{{item.moeda}}">
+                                <input type="hidden" name='iid' value="{{item.item_id}}">
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <br>
+                    <input type="submit" value="Comprar">
+                </form>
+            </div>
+            {% endif %}
+        </div>
 
     <script>
+        const escuta = window.document.addEventListener('input', () => {
+            console.log(escuta, "<- Escuta")
+        })
+
         function funcPopup(elemento) {
             let popup = document.getElementById(elemento);
             popup.classList.toggle("show");
@@ -147,16 +152,16 @@
                 linha.id = `lc_${nome_item}`;
                 linha.setAttribute('name','itemPegar');
                 linha.insertCell(0).innerHTML = 
-                `<input style="border:3px solid black;background: transparent; " type="text" name="ItemNome" id="${nome_item}_N" value="${nome_item}">`
+                `<input type="text" name="ItemNome" id="${nome_item}_N" value="${nome_item}">`
                 
                 linha.insertCell(1).innerHTML = 
-                `<input style="border:3px solid black;background: transparent; width:25px;" type="number" name="itemQuantidade" id="${nome_item}_Q" value="1">`
+                `<input type="number" name="itemQuantidade" id="${nome_item}_Q" value="1">`
                 
                 linha.insertCell(2).innerHTML = `${valor} ${moeda}`
                 linha.insertCell(3).innerHTML = `${peso} kg`
-                linha.insertCell(4).innerHTML = `<button type="button" id="add_item" onclick="remove_item('lc_${nome_item}')">-</button>`
-                linha.insertCell(5).innerHTML = `<input type="hidden" id="moeda" value="${moeda}">`
-                linha.insertCell(6).innerHTML = `<input type="hidden" name='iid' value="${iid}">`
+                linha.insertCell(4).innerHTML = `<button type="button"onclick="remove_item('lc_${nome_item}')">-</button>
+                 <input type="hidden" id="moeda" value="${moeda}">
+                 <input type="hidden" name='iid' value="${iid}">`
                 
                 // novoLinha = document.createElement("tr");
                 // novoLinha.setAttribute('name','itemPegar');

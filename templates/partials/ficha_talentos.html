@@ -1,22 +1,33 @@
-<div name='area_talentos' 
-    style="display: inline-block; margin-right: 10px; border:2px solid black ; padding: 10px;">
+<div name='area_talentos' class="div_habilidades" >
     <h3>Talentos</h3>
-    <table id="tabela_talentos">
+    <table id="tabela_talentos" class="tabela_especial">
+        {% if not talentos %}
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+            </tr>
+        {% endif %}
+        
+        {% if talentos %}
+            {% for talento in talentos%}    
+                </tr>
+                    <td>
+                        <div class="popup" onmouseover="myFunction( '{{talento}}' )">
+                            <input type="text" name="talentos_classe" id="talentos_classe" value="{{talento.habilidade}}">
+                            <input type="hidden" name="des_talentos_classe" id="des_talentos_classe" value="{{talento.descricao}}">
+                            <span class="popuptext" id="{{talento}}">{{talento.descricao}}</span>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        {%else%}
         <tr>
-            <th>Talentos 
-                <button type="button" id="rem_talentos" onclick="remove_item('tabela_talentos')">-</button> 
-                <button type="button" id="add_talentos" onclick="add_item('tabela_talentos','talentos_classe')">+</button>
-            </th>
-        {% for talento in talentos%}    
-            </tr>
-                <th>
-                    <div class="popup" onmouseover="myFunction( '{{talento}}' )">
-                        <input type="text" name="talentos_classe" id="talentos_classe" value="{{talento.habilidade}}">
-                        <input type="hidden" name="des_talentos_classe" id="des_talentos_classe" value="{{talento.descricao}}">
-                        <span class="popuptext" id="{{talento}}">{{talento.descricao}}</span>
-                    </div>
-                </th>
-            </tr>
-        {% endfor %}
+            <td><input type="text" name="talentos_classe" id="talentos_classe"></td>
+            <td><input type="text" name="des_talentos_classe" id="des_talentos_classe"></td>
+        </tr>
+        {%endif%}
     </table>
+    <button type="button" id="rem_talentos" onclick="remove_habilidade('tabela_talentos')">-</button> 
+    <button type="button" id="add_talentos" onclick="add_habilidade('tabela_talentos','talentos_classe')">+</button>
+            
 </div>

@@ -5,6 +5,11 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+lista_pericias = [
+    'acrobacia', 'adestrar_animais', 'arcanismo', 'atletismo', 'atuacao', 'enganacao',
+    'furtividade','historia','intimidacao','intuicao','investigação','medicina',
+    'natureza','percepcao','persuasao','prestidigitar','religiao','sobrevivencia'
+]
 
 # Create your views here.
 
@@ -13,8 +18,9 @@ def index(request):
 
 @login_required(login_url='/login')
 def cria_ficha(request):
+    
     if request.method == 'GET':
-        return render(request, 'cria_ficha.html')
+        return render(request, 'cria_ficha.html', {'lista_pericias':lista_pericias})
 
     if request.method == 'POST':
         nome_jogador = request.user.username
@@ -52,12 +58,12 @@ def cria_ficha(request):
             sabedoria=request.POST['sabedoria'],
             carisma=request.POST['carisma'],
             # Teste de Resistencia 
-            res_for = request.POST['res_for'], ores_for = request.POST['ores_for'],
-            res_des = request.POST['res_des'], ores_des = request.POST['ores_des'],
-            res_cons= request.POST['res_cons'], ores_cons= request.POST['ores_cons'],
-            res_int= request.POST['res_int'], ores_int= request.POST['ores_int'],
-            res_sab= request.POST['res_sab'], ores_sab= request.POST['ores_sab'],
-            res_car= request.POST['res_car'], ores_car= request.POST['ores_car'],
+            res_for = request.POST.get('res_for'), ores_for = request.POST['ores_for'],
+            res_des = request.POST.get('res_des'), ores_des = request.POST['ores_des'],
+            res_cons= request.POST.get('res_cons'), ores_cons= request.POST['ores_cons'],
+            res_int= request.POST.get('res_int'), ores_int= request.POST['ores_int'],
+            res_sab= request.POST.get('res_sab'), ores_sab= request.POST['ores_sab'],
+            res_car= request.POST.get('res_car'), ores_car= request.POST['ores_car'],
             #Pericias
             acrobacia = request.POST.get('acrobacia'), ot_acrobacia = request.POST.get('ot_acrobacia'),
             adestrar_animais = request.POST.get('adestrar_animais'),
@@ -82,6 +88,7 @@ def cria_ficha(request):
         ficha.save()
 
         personagem = BasePersonagem.objects.get(nome_personagem=nome_personagem,nome_jogador=nome_jogador)
+        
 
         #Removendo as Habilidades Atuais e Recriando com base no cliente
         gerencia_multiplos_elementos(request,HabilidadesClasse,'habilidade_classe',personagem)
@@ -92,7 +99,7 @@ def cria_ficha(request):
         #Removendo as Caracteristicas Raciais Atuais e Recriando com base no cliente
         gerencia_multiplos_elementos(request,CaracteristicasRaciaisClasse,'cara_raciais_classe',personagem)
         
-        return render(request, 'ver_ficha.html')
+        return redirect('ver_ficha')
 
 
 
@@ -101,28 +108,59 @@ def ver_ficha(request):
     if 'deletar' in request.POST:
         BasePersonagem.objects.get(pk=request.POST.get("id"),nome_jogador=request.user.username).delete()
     
-    try:
-        base = BasePersonagem.objects.get(
-            nome_jogador=request.user.username,nome_personagem=request.POST.get('personagem')
-            )
-    except:
-        base = BasePersonagem.objects.filter(nome_jogador=request.user.username)
-        return render(request, 'personagens.html', {'base':base})
 
-    habilidades = HabilidadesClasse.objects.all().filter(personagem=base.id)
-    talentos = TalentosClasse.objects.all().filter(personagem=base.id)
-    cara_raciais = CaracteristicasRaciaisClasse.objects.all().filter(personagem=base.id)
-    inventario = InventarioPersonagem.objects.all().filter(personagem=base.id)
+
+
+    jogador = request.user.username
+    personagens = BasePersonagem.objects.filter(nome_jogador=request.user.username)
+    
+    
     
     dados = {
-        'base':base,
-        'habilidades':habilidades,
-        'talentos':talentos,
-        'cara_raciais':cara_raciais,
-        'inventario':inventario
-    }
+            'personagens':personagens,
+            'lista_pericias':lista_pericias
+        }
+    if 'personagem' in request.GET:
+        personagem = BasePersonagem.objects.get(
+            nome_jogador=jogador,nome_personagem=request.GET.get('personagem')
+            )
+        dicionario_pericias = {}
+        for pericia in lista_pericias:
+            status = getattr(personagem, pericia)
+            bonus = getattr(personagem, f'ot_{pericia}')
+            dicionario_pericias[pericia] = (status,bonus)
+
+
+        dados['base'] = personagem
+        dados['dicionario_pericias'] = dicionario_pericias
+        dados['habilidades'] = HabilidadesClasse.objects.all().filter(personagem=personagem.id)
+        dados['talentos'] = TalentosClasse.objects.all().filter(personagem=personagem.id)
+        dados['cara_raciais'] = CaracteristicasRaciaisClasse.objects.all().filter(personagem=personagem.id)
 
     return render(request,'ver_ficha.html' ,dados)
+
+    # try:
+    #     personagem = BasePersonagem.objects.get(
+    #         nome_jogador=request.user.username,nome_personagem=request.POST.get('personagem')
+    #         )
+    # except:
+    #     personagens = 
+    #     return render(request, 'personagens.html', {'base':base})
+
+    # habilidades = HabilidadesClasse.objects.all().filter(personagem=base.id)
+    # talentos = TalentosClasse.objects.all().filter(personagem=base.id)
+    # cara_raciais = CaracteristicasRaciaisClasse.objects.all().filter(personagem=base.id)
+    # inventario = InventarioPersonagem.objects.all().filter(personagem=base.id)
+    
+    # dados = {
+    #     'base':personagem,
+    #     'habilidades':habilidades,
+    #     'talentos':talentos,
+    #     'cara_raciais':cara_raciais,
+    #     'inventario':inventario
+    # }
+
+    # return render(request,'ver_ficha.html' ,dados)
 
 
 @login_required(login_url='/login')
@@ -201,6 +239,14 @@ def editar_ficha(request):
 
     return redirect('ver_ficha')
 
+
+@login_required(login_url='/login')
+def deletar_ficha(request):
+    jogador = request.user.username
+    id = request.GET.get('personagem')
+    BasePersonagem.objects.get(id=id,nome_jogador=jogador).delete()
+    
+    return redirect('ver_ficha')
 
 #Usuarios
 def cadastro(request):

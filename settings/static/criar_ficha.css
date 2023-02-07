@@ -1,0 +1,193 @@
+.texto {
+    border-bottom: 3px solid black;
+    border-left: 3px solid black;
+    text-align: left;
+    vertical-align:middle;
+    display:inline-block;
+    width: 150px;
+    height: 50px;
+    font-size: 18px;
+    margin: 1%;
+    padding-left: 2px;
+    max-width: 20%;
+    min-width: 15%;
+}
+
+.texto input{
+    background-color: transparent;
+    border: none;
+    display: block;
+    width: 100%;
+    color: black;
+    font-size: 16px;
+}
+
+.texto select {
+    background-color: transparent;
+    border: none;
+    display: block;
+    width: 100%;
+    color: black;
+    font-size: 16px;
+}
+
+.numero {
+    border-bottom: 3px solid black;
+    border-left: 3px solid black;
+    text-align: left;
+    font-size: 18px;
+    height: 20px;
+    padding: 3px;
+    margin: 1%;
+    max-width: 100px;
+}
+
+.numero input {
+    background-color: transparent;
+    text-align: right;
+    font-size: 16px;
+    border: none;
+    width: 30px;
+}
+
+#criar_ficha {
+    margin: 2% auto;
+    padding:1%;
+    border: 2px solid black;
+    background-color:rgba(165, 42, 42, 0.50);
+    vertical-align: top;
+    max-width: 760px;
+}
+
+#area_base {
+    /* background-color:palevioletred; */
+    display: inline-block;
+    width: 90%;
+    /* border: 5px solid black; */
+    padding: 15px;
+    margin: auto;
+}
+
+
+
+/* Área de Habilidades */
+#area_habilidades {
+    /* background-color:darkgreen; */
+    padding: 1%;
+    display:inline-block;
+    position: relative;
+    left: 15px;
+    vertical-align: top;
+    width:145px;
+}
+#area_habilidades h3 {
+    text-align: center;
+    margin: 5px 0px;
+    padding-left: 10px;
+}
+#area_habilidades label {
+    display: block;
+    min-width: 130px;
+    margin: 1px;
+    margin-block-end: 0px;
+    text-align-last: end;
+}
+#area_habilidades input {
+    /* position: relative;
+    left: 200px; */
+    display: inline-block;
+    max-width: 30px;
+    text-align: end;
+    margin: 0px auto;
+}
+
+/* Área do Teste de Resistencia */
+#area_teste_resistencia {
+    /* background-color: white; */
+    width: 160px;
+    display: inline-block;
+    text-align: center;
+    padding: 5px;
+    position: relative;
+    left: 9%;
+    vertical-align: top;
+}
+#area_teste_resistencia input {
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+    width: 30px;
+}
+#area_teste_resistencia h3 {
+    text-align: center;
+    margin: 5px 0px;
+}
+
+
+/* Area das Perícias */
+#area_pericias {
+    display: inline-block;
+    position: relative;
+    left: 75px;
+    margin: auto 30px;
+}
+#area_pericias label {
+    margin:0 auto 0 5px ;
+    font-weight: bold;
+    font-size: 16px;
+}
+#area_pericias h3 {
+    text-align: center;
+}
+
+.tabela{
+    border-collapse:collapse;
+    display: inline-block;
+    margin: auto;
+    align-self: flex-end;
+}
+.tabela th {
+    border-bottom: 3px solid black;
+    border-left: 3px solid black;
+    padding: 0px 5px;
+}
+.tabela td:first-of-type{
+    border-left: 3px solid black;
+}
+.tabela td{
+    /* background-color: aqua; */
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 5px;
+    border-bottom: 3px solid black;
+    border-left: 1px solid black;
+}
+
+/*  Área das Habilidades de Classe, Talentos e 
+Caracteristicas Raciais */
+
+.div_habilidades {
+    display:table;
+    /* background-color: deeppink; */
+    position: relative;
+    bottom: 370px;
+    left: 20px;
+    border-left: 3px solid black;
+    border-right: 3px solid black;
+}
+.div_habilidades h3 {
+    text-align: center;
+    margin: 3px auto;
+    max-width: 30%;
+}
+.div_habilidades input {
+    display:table-cell;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid black ;
+}
+.div_habilidades tr:last-child {
+    /* background-color: darkcyan; */
+    border-bottom: 3px solid black;
+}

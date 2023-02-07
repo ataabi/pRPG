@@ -1,29 +1,60 @@
-<div name="'area_pericias" >
-    <h3>Pericias</h3>
-    <table style="display: inline-block;">
+<div id="area_pericias" >
+    <h3>Perícias</h3>
+    <table class="tabela">
         <tr>
-            <th>Pericia</th>
-            <th>Prof</th>
-            <th>Outros</th>
-            <th>Total</th>
+            <th> Perícia </th>
+            <th> Prof </th>
+            <th> Outros </th>
+            <th> Total </th>
         </tr>
+        {% if not dicionario_pericias %}
+
+            {% for pericia in lista_pericias %}
         <tr>
+            <td><label for="{{pericia}}">{{pericia|title}}</label></td>
+            <td>
+                <input type="hidden" name="{{pericia}}" id="{{pericia}}" value='False'>
+                <input type="checkbox" name="{{pericia}}" id="{{pericia}}"value="True" >
+            </td>
+            <td class="numero"><input  type="number" name="ot_{{pericia}}" id="ot_{{pericia}}" value="0"></td>
+            <td class="numero"><p></p></td>
+        </tr>
+            {% endfor %}
+        {% else %}
+            {% for pericia, valor in dicionario_pericias.items %}
+                <tr >
+                    <td>{{pericia|title}}</td>
+                    <td>
+                        <input type="hidden" name="{{pericia}}" id="{{pericia}}" value='False'>
+                        <input type="checkbox" name="{{pericia}}" id="{{pericia}}"
+                        {% if valor.0 %} checked {% endif %} value="True" >
+                    </td>
+                    <td><input type="number" name="ot_{{pericia}}" id="ot_{{pericia}}"
+                        {% if valor.1 > 0 %} value="{{valor.1}}" {% else %} value="0" {%endif%}></td>
+                    <td><p>{% if valor.0 %} {{valor.1|add:base.proficiencia }} {% else %} {{valor.1}}{% endif %}</p></td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        <!-- <tr>
             <th>Acrobacia</th>
-            {% if base.acrobacia %}
-                <th><input type="checkbox" name="acrobacia" id="acrobacia" checked value="True" ></th>
-            {% else %}
-                <th><input type="checkbox" name="acrobacia" id="acrobacia" value="True"></th>
-            {% endif %}
-            <th><input type="number" name="ot_acrobacia" id="ot_acrobacia" value="{{base.ot_acrobacia}}"></th>
+            <th>
+                <input type="hidden" name="acrobacia" id="acrobacia" value='False'>
+                <input type="checkbox" name="acrobacia" id="acrobacia" 
+                {% if base.acrobacia %} checked {% endif %} value="True" >
+            </th>
+            <th>
+                <input type="number" name="ot_acrobacia" id="ot_acrobacia" 
+                {% if base.ot_acrobacia %} value="{{base.ot_acrobacia}}" {% else %} value="0" {%endif%}>
+            </th>
             <th><p>{{ base.valor_acrobacia }}</p></th>
         </tr>
         <tr>
             <th>Adestrar Animais</th>
-            {% if base.adestrar_animais %}
-                <th><input type="checkbox" name="adestrar_animais" id="adestrar_animais" checked value="True"></th>
-            {% else %}
-                <th><input type="checkbox" name="adestrar_animais" id="adestrar_animais" value="True"></th>
-            {% endif %}
+            <th>
+                <input type="hidden" name="adestrar_animais" id="adestrar_animais" value='False'>
+                <input type="checkbox" name="adestrar_animais" id="adestrar_animais" 
+                {% if base.adestrar_animais %} checked {% endif %} value="True">
+            </th>
             <th><input type="number" name="ot_adestrar_animais" id="ot_adestrar_animais" value="{{base.ot_adestrar_animais}}"></th>
             <th><p>{{ base.valor_adestrar_animais }}</p></th>
         </tr>
@@ -50,7 +81,7 @@
         <tr>
             <th>Atuação</th>
             {% if base.atuacao %}
-                <th><input type="checkbox" name="atuacao" id="atuacao" checked value="True"></th>
+                <th><input type= "checkbox" name="atuacao" id="atuacao" checked value="True"></th>
             {% else %}
                 <th><input type="checkbox" name="atuacao" id="atuacao" value="True"></th>
             {% endif %}
@@ -193,6 +224,6 @@
             {% endif %}
             <th><input type="number" name="ot_sobrevivencia" id="ot_sobrevivencia" value="{{base.ot_sobrevivencia}}"></th>
             <th><p>{{ base.valor_sobrevivencia }}</p></th>
-        </tr>
+        </tr> -->
     </table>
 </div>

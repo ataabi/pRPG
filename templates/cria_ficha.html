@@ -1,279 +1,21 @@
 {% extends 'base.html' %}
 {% block base %}
     {% load static %}
+    <link rel="stylesheet" href="{% static 'criar_ficha.css' %}">
+    
+    <div id='criar_ficha'>
     <form method="POST" action="{% url 'cria_ficha' %}">
         {% csrf_token %}
-        <!-- <div name="area_base">
-            <h3>Informações Básicas</h3>
-            <label>Nome Personagem<input type="text" name="nome_personagem"></label>
-            <label>Raça<input type="text" name="raca"></label>
-            <label>Classe<input type="text" name="classe"></label>
-            <label>Arquetipo<input type="text" name="arquetipo"></label>
-            <label>Nível<input type="number" name="nivel"></label>
-            <br>
-            <label>Antecedente<input type="text" name="antecedente"></label>
-            
-            <label>Tendência
-                <select name='tendencia'>
-                    <option value="Leal e Bom">Leal e Bom</option>
-                    <option value="Leal e Netro">Leal e Netro</option>
-                    <option value="Leal e Mal">Leal e Mal</option>
-                    <option value="Neutro e Bom">Neutro e Bom</option>
-                    <option value="Neutro">Neutro</option>
-                    <option value="Neutro e Mal">Neutro e Mal</option>
-                    <option value="Caótico e Bom">Caótico e Bom</option>
-                    <option value="Caótico e Neutro">Caótico e Neutro</option>
-                    <option value="Caótico e Mal">Caótico e Mal</option>
-                </select>
-            </label>
-            <label>Divindade<input type="text" name="divindade"></label>
-            <label>Terra Natal<input type="text" name="terra_natal"></label>
-            <label>Iniciativa<input type="number" name="iniciativa"></label>
-            <label>C.A<input type="number" name="c_a"></label>
-            <br>
-            <label>Deslocamento<input type="number" name="deslocamento"></label>
-            <label>Inspiração<input type="number" name="inspiracao"></label>
-            <label>Proficiencia<input type="number" name="proficiencia"></label>
-            <label>PV Maximo<input type="number" name="pv_maximo"></label>
-            <label>PV Atual<input type="number" name="pv_atual"></label>
-            <label>Dados de Vida<input type="number" name="dados_vida"></label>
-            <br>
-            <label>Idiomas<input type="text" name="idiomas"></label>
-        </div> -->
         {% include 'partials/ficha_base.html' %}
-        <div name="habilidades">
-            <h3>Habilidades</h3>
-            <label>Força<input type="number" name="forca"> </label>
-            <label>Destreza<input type="number" name="destreza"> </label>
-            <label>Constituição<input type="number" name="constituicao"> </label>
-            <br>
-            <label>Integiência<input type="number" name="inteligencia"> </label>
-            <label>Sabedoria<input type="number" name="sabedoria"> </label>
-            <label>Carisma<input type="number" name="carisma"> </label>
-        </div>
-
-        <div name="area_teste_resistencia">
-            <h3>Teste De Resistencia</h3>
-            <table>
-                <tr>
-                    <th>TR</th>
-                    <th>Prof</th>
-                    <th>Outros</th>
-                </tr>
-                <tr>
-                    <th>FOR</th>
-                    <th><input type="hidden" name="res_for" id="res_for" value='False'></th>
-                    <th><input type="checkbox" name="res_for" id="res_for" value='True'></th>
-                    <th><input type="number" name="ores_for" id="ores_for" value="0"></th>
-                </tr>
-                <tr>
-                    <th>DES</th>
-                    <th><input type="hidden" name="res_des" id="res_des" value='False'></th>
-                    <th><input type="checkbox" name="res_des" id="res_des" value='True'></th>
-                    <th><input type="number" name="ores_des" id="ores_des" value="0"></th>
-                </tr>
-                <tr>
-                    <th>CONS</th>
-                    <th><input type="hidden" name="res_cons" id="res_cons" value='False'></th>
-                    <th><input type="checkbox" name="res_cons" id="res_cons" value='True'></th>
-                    <th><input type="number" name="ores_cons" id="ores_cons" value="0"></th>
-                </tr>
-                <tr>
-                    <th>INT</th>
-                    <th><input type="hidden" name="res_int" id="res_int" value='False'></th>
-                    <th><input type="checkbox" name="res_int" id="res_int" value='True'></th>
-                    <th><input type="number" name="ores_int" id="ores_int" value="0"></th>
-                </tr>
-                <tr>
-                    <th>SAB</th>
-                    <th><input type="hidden" name="res_sab" id="res_sab" value='False'></th>
-                    <th><input type="checkbox" name="res_sab" id="res_sab" value='True'></th>
-                    <th><input type="number" name="ores_sab" id="ores_sab" value="0"></th>
-                </tr>
-                <tr>
-                    <th>CAR</th>
-                    <th><input type="hidden" name="res_car" id="res_car" value='False'></th>
-                    <th><input type="checkbox" name="res_car" id="res_car" value='True'></th>
-                    <th><input type="number" name="ores_car" id="ores_car" value="0"></th>
-                </tr>
-            </table>
-        </div>
-
-        <div name="area_pericias">
-            <h3>Pericias</h3>
-            <table style="display: inline-block;">
-                <tr>
-                    <th>Pericia</th>
-                    <th>Prof</th>
-                    <th>Outros</th>
-                </tr>
-                <tr>
-                    <th>Acrobacia</th>
-                    <th><input type="hidden" name="acrobacia" id="acrobacia" value='False'></th>
-                    <th><input type="checkbox" name="acrobacia" id="acrobacia" value='True'></th>
-                    <th><input type="number" name="ot_acrobacia" id="ot_acrobacia" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Adestrar Animais</th>
-                    <th><input type="hidden" name="adestrar_animais" id="adestrar_animais" value='False'></th>
-                    <th><input type="checkbox" name="adestrar_animais" id="adestrar_animais" value='True'></th>
-                    <th><input type="number" name="ot_adestrar_animais" id="ot_adestrar_animais" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Arcanismo</th>
-                    <th><input type="hidden" name="arcanismo" id="arcanismo" value='False'></th>
-                    <th><input type="checkbox" name="arcanismo" id="arcanismo" value='True'></th>
-                    <th><input type="number" name="ot_arcanismo" id="ot_arcanismo" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Atletismo</th>
-                    <th><input type="hidden" name="atletismo" id="atletismo" value='False'></th>
-                    <th><input type="checkbox" name="atletismo" id="atletismo" value='True'></th>
-                    <th><input type="number" name="ot_atletismo" id="ot_atletismo" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Atuação</th>
-                    <th><input type="hidden" name="atuacao" id="atuacao" value='False'></th>
-                    <th><input type="checkbox" name="atuacao" id="atuacao" value='True'></th>
-                    <th><input type="number" name="ot_atuacao" id="ot_atuacao" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Enganação</th>
-                    <th><input type="hidden" name="enganacao" id="enganacao" value='False'></th>
-                    <th><input type="checkbox" name="enganacao" id="enganacao" value='True'></th>
-                    <th><input type="number" name="ot_enganacao" id="ot_enganacao" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Furtividade</th>
-                    <th><input type="hidden" name="furtividade" id="furtividade" value='False'></th>
-                    <th><input type="checkbox" name="furtividade" id="furtividade" value='True'></th>
-                    <th><input type="number" name="ot_furtividade" id="ot_furtividade" value="0"></th>
-                </tr>
-                <tr>
-                    <th>História</th>
-                    <th><input type="hidden" name="historia" id="historia" value='False'></th>
-                    <th><input type="checkbox" name="historia" id="historia" value='True'></th>
-                    <th><input type="number" name="ot_historia" id="ot_historia" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Intimidação</th>
-                    <th><input type="hidden" name="intimidacao" id="intimidacao" value='False'></th>
-                    <th><input type="checkbox" name="intimidacao" id="intimidacao" value='True'></th>
-                    <th><input type="number" name="ot_intimidacao" id="ot_intimidacao" value="0"></th>
-                </tr>
-            </table>
-            <table style="display: inline-block;">
-                <tr>
-                    <th>Pericia</th>
-                    <th>Prof</th>
-                    <th>Outros</th>
-                </tr>
-                <tr>
-                    <th>Intuição</th>
-                    <th><input type="hidden" name="intuicao" id="intimidacao" value='False'></th>
-                    <th><input type="checkbox" name="intuicao" id="intimidacao" value='True'></th>
-                    <th><input type="number" name="ot_intuicao" id="ot_intimidacao" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Investigação</th>
-                    <th><input type="hidden" name="investigação" id="investigação" value='False'></th>
-                    <th><input type="checkbox" name="investigação" id="investigação" value='True'></th>
-                    <th><input type="number" name="ot_investigação" id="ot_investigação" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Medicina</th>
-                    <th><input type="hidden" name="medicina" id="medicina" value='False'></th>
-                    <th><input type="checkbox" name="medicina" id="medicina" value='True'></th>
-                    <th><input type="number" name="ot_medicina" id="ot_medicina" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Natureza</th>
-                    <th><input type="hidden" name="natureza" id="natureza" value='False'></th>
-                    <th><input type="checkbox" name="natureza" id="natureza" value='True'></th>
-                    <th><input type="number" name="ot_natureza" id="ot_natureza" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Percepção</th>
-                    <th><input type="hidden" name="percepcao" id="percepcao" value='False'></th>
-                    <th><input type="checkbox" name="percepcao" id="percepcao" value='True'></th>
-                    <th><input type="number" name="ot_percepcao" id="ot_percepcao" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Persuasão</th>
-                    <th><input type="hidden" name="persuasao" id="persuasao" value='False'></th>
-                    <th><input type="checkbox" name="persuasao" id="persuasao" value='True'></th>
-                    <th><input type="number" name="ot_persuasao" id="ot_persuasao" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Prestidigitar</th>
-                    <th><input type="hidden" name="prestidigitar" id="prestidigitar" value='False'></th>
-                    <th><input type="checkbox" name="prestidigitar" id="prestidigitar" value='True'></th>
-                    <th><input type="number" name="ot_prestidigitar" id="ot_prestidigitar" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Religião</th>
-                    <th><input type="hidden" name="religiao" id="religiao" value='False'></th>
-                    <th><input type="checkbox" name="religiao" id="religiao" value='True'></th>
-                    <th><input type="number" name="ot_religiao" id="ot_religiao" value="0"></th>
-                </tr>
-                <tr>
-                    <th>Sobrevivência</th>
-                    <th><input type="hidden" name="sobrevivencia" id="sobrevivencia" value='False'></th>
-                    <th><input type="checkbox" name="sobrevivencia" id="sobrevivencia" value='True'></th>
-                    <th><input type="number" name="ot_sobrevivencia" id="ot_sobrevivencia" value="0"></th>
-                </tr>
-            </table>
-        </div>
-
-        <div name="area_habilidade_classe"
-        style="display: inline-block; margin-right: 10px; border:2px solid black ; padding: 10px;">
-            <h3>Habilidades De Classe</h3>
-            <table id="tabela_h_classe">
-                <tr>
-                    <th>H.Classe
-                        <button type="button" id="rem_h_classe" >-</button>
-                        <button type="button" id="add_h_classe" >+</button>
-                    </th>
-                </tr>
-                    <th><input type="text" name="habilidade_classe" id="habilidade_classe"></th>
-                    <th><input type="text" name="des_habilidade_classe" id="des_habilidade_classe"></th>
-                </tr>
-            </table>
-
-        </div>
-
-        <div name='area_talentos'
-        style="display: inline-block; margin-right: 10px; border:2px solid black ; padding: 10px;">
-            <h3>Talentos</h3>
-            <table id="tabela_talentos">
-                <tr>
-                    <th>Talentos 
-                        <button type="button" id="rem_talentos" >-</button> 
-                        <button type="button" id="add_talentos" >+</button>
-                    </th>
-                </tr>
-                    <th><input type="text" name="talentos_classe" id="talentos_classe"></th>
-                    <th><input type="text" name="des_talentos_classe" id="des_talentos_classe"></th>
-                </tr>
-            </table>
-        </div>
-
-        <div name='area_caracteristicas_raciais'
-        style="display: inline-block; margin-right: 10px; border:2px solid black ; padding: 10px;">
-            <h3>Características Raciais</h3>
-            <table id="tabela_c_racias">
-                <tr>
-                    <th>Caracteísticas Raciais
-                        <button type="button" id="rem_c_racias" >-</button>
-                        <button type="button" id="add_c_racias" >+</button>
-                    </th>
-                </tr>
-                    <th><input type="text" name="cara_raciais_classe" id="cara_raciais_classe"></th>
-                    <th><input type="text" name="des_cara_raciais_classe" id="des_cara_raciais_classe"></th>
-                </tr>
-            </table>
-        </div>
-
+        
+        {% include 'partials/ficha_habilidades.html' %}
+        {% include 'partials/ficha_testeResistencia.html' %}
+        {% include 'partials/ficha_pericias.html' %}
+        
+        {% include 'partials/ficha_habilidadesClasse.html' %}
+        {% include 'partials/ficha_caracteristicasRaciais.html' %}
+        {% include 'partials/ficha_talentos.html' %}
+       
         <script>
         let add_h_classe = window.document.getElementById('add_h_classe')
         let rem_h_classe = window.document.getElementById('rem_h_classe')
@@ -300,6 +42,7 @@
                 let tabela = window.document.getElementById('tabela_talentos')
                 let row = tabela.insertRow(-1);
                 row.insertCell(0).innerHTML = `<th><input type="text" name="talentos_classe" id="talentos_classe"></th>`;
+                row.insertCell(1).innerHTML = `<th><input type="text" name="des_talentos_classe" id="des_talentos_classe"></th>`;
                 
             })
             rem_talentos.addEventListener('click', function (event) {
@@ -315,6 +58,7 @@
                 let tabela = window.document.getElementById('tabela_c_racias')
                 let row = tabela.insertRow(-1);
                 row.insertCell(0).innerHTML = `<th><input type="text" name="cara_raciais_classe" id="cara_raciais_classe"></th>`;
+                row.insertCell(1).innerHTML = `<th><input type="text" name="des_cara_raciais_classe" id="des_cara_raciais_classe"></th>`;
                 
             })
         

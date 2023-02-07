@@ -1,10 +1,21 @@
-<div name="area_habilidades">
+<div id="area_habilidades">
     <h3>Habilidades</h3>
-    <label>Força<input type="number" name="forca" value="{{base.forca}}"> </label>
-    <label>Destreza<input type="number" name="destreza" value="{{base.destreza}}"> </label>
-    <label>Constituição<input type="number" name="constituicao" value="{{base.constituicao}}"> </label>
-    <br>
-    <label>Integiência<input type="number" name="inteligencia" value="{{base.inteligencia}}"> </label>
-    <label>Sabedoria<input type="number" name="sabedoria" value="{{base.sabedoria}}"> </label>
-    <label>Carisma<input type="number" name="carisma" value="{{base.carisma}}"> </label>
+    <label class="numero">Força <input type="number" name="forca" 
+       {% if base.forca %} value="{{base.forca}}"  {% else %} value="0" {% endif %}> 
+    </label>
+    <label class="numero">Destreza<input type="number" name="destreza" 
+        {% if base.forca %} value="{{base.destreza}}" {% else %} value="0" {% endif %}>
+    </label>
+    <label class="numero">Constituição<input type="number" name="constituicao" 
+        {% if base.forca %} value="{{base.constituicao}}" {% else %} value="0" {% endif %}> 
+    </label>
+    <label class="numero">Integiência<input type="number" name="inteligencia" 
+        {% if base.forca %} value="{{base.inteligencia}}" {% else %} value="0" {% endif %}>
+    </label>
+    <label class="numero">Sabedoria<input type="number" name="sabedoria" 
+        {% if base.forca %} value="{{base.sabedoria}}"{% else %} value="0" {% endif %}>
+    </label>
+    <label class="numero">Carisma<input type="number" name="carisma" 
+        {% if base.forca %} value="{{base.carisma}}" {% else %} value="0" {% endif %}>
+    </label>
 </div>
