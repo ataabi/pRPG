@@ -1,0 +1,40 @@
+<div class='divFormulario' id='divMagia'>
+    <div class="exibicaoMagia" style="text-align: center;">
+        <button id="nova_magia" >Adicionar Magia</button>
+    </div>
+       
+        <input type="hidden" value="{{nome_personagem}}" id="nome_personagem">
+        {% for magia in magias %}
+        <div class="exibicaoMagia">  
+            <h3>{{ magia.nome }} <span>
+                <a href="{% url 'remover_magia' nome_personagem magia.id %}">&#128465</a></span></h3>
+            <div>
+                <strong>Nivel :</strong><p>{{magia.nivel}}</p> 
+                <strong>Escola :</strong><p>{{magia.escola}}</p> 
+                <strong>Tempo de Conjuração :</strong><p>{{magia.tempo_conjuracao}}</p> 
+            </div>
+            <div>
+                <strong>Alcance :</strong><p>{{magia.alcance}}</p> 
+            </div>
+            <div>
+                <strong>Componentes :</strong><p>{{magia.componentes}}</p> 
+            </div>
+            <div>
+                <strong>Duração :</strong><p>{{magia.duracao}}</p> 
+            </div>
+            <div>
+                <strong>Descricao :</strong><p>{{magia.descricao}}</p> 
+            </div>
+        </div>    
+        {% endfor %}
+         
+</div>
+    
+
+<script>
+    var nova_magia = window.document.getElementById('nova_magia')
+    nova_magia.addEventListener('click', () => {
+        document.getElementById('divMagia').innerHTML = `{% include 'ded5e/cria_magia.html' %}`
+    })
+  
+</script>

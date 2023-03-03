@@ -1,0 +1,142 @@
+<form id="SalvarItens" method="POST" action="{% url 'inventario_update' personagem %}">{% csrf_token %}</form>
+<div name='carinho_compras' class="bloco-loja-2" >
+    <table id='lista_compra' name='lista_compra' class="tabela-loja">
+        <!-- <input form="SalvarItens"  type="hidden" name="personagem" value="{{ personagem.nome_personagem }}"> -->
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Quant.</th>
+                <th>valor</th>
+                <th>Peso</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in inventario%}
+            <!-- lc = lista compra -->
+                <tr id='lc_{{item.nome_item}}' name='item_pegar'>
+                    <td>
+                        <div class="popup" onclick="funcPopup( 'pop_{{item.nome_item}}' )">
+                            <input form="SalvarItens" type="text" name="item_nome" id="{{item.nome_item}}_N" value="{{item.nome_item}}">
+                            <span class="popuptext" id="pop_{{item.nome_item}}">{{item.descricao}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <input form="SalvarItens" type="number" name="item_quantidade" id="{{item.nome_item}}_Q" value="{{item.quantidade}}">
+                    </td>
+                    <td>{{item.valor}} {{item.moeda}}</td>
+                    <td>{{item.peso}} kg</td>
+                    <td style=" border:3px solid black;">
+                        <button type="button" id="add_item" onclick="remover_item('{{item.nome_item}}')">-</button>
+                    </td>
+                    <input form="SalvarItens" type="hidden" id="{{item.nome_item}}_moeda" value="{{item.moeda}}">
+                    <input form="SalvarItens" type="hidden" name='valor_base' id='{{item.nome_item}}_valor_base' value="{{item.valor}}">
+                    <input form="SalvarItens" type="hidden" name='peso_base' id='{{item.nome_item}}_peso_base' value="{{item.peso}}">
+                </tr> 
+            {% endfor %}
+        </tbody>
+    </table>
+    <div>
+        <button onclick="add_novo_item()" >Novo Item</button>
+        <input form="SalvarItens" type="submit" value="Salvar"> 
+    </div>
+    
+</div>
+
+
+<script>
+    function funcPopup(elemento) {
+            let popup = document.getElementById(elemento);
+            popup.classList.toggle("show");
+        }
+
+    function subtrair_item(item) {
+        // Pegando os itens e seus valores bases
+        const linhaItem = window.document.getElementById(`lc_${item}`)
+        var quantidade = window.document.getElementById(`${item}_Q`)
+        
+        var moeda = window.document.getElementById(`${item}_moeda`).value
+        var valor_base = window.document.getElementById(`${item}_valor_base`).value
+        var peso_base = window.document.getElementById(`${item}_peso_base`).value.replace(',','.')
+        
+        if(quantidade.value > 1) {
+
+            // Subtraindo em 1 o valor da quantidade
+            window.document.getElementById(`${item}_Q`).value --
+            
+            // Valor
+            linhaItem.getElementsByTagName('td')[2].innerText = `${quantidade.value * valor_base} ${moeda}`
+            // Peso
+            linhaItem.getElementsByTagName('td')[3].innerText = `${peso_base * quantidade.value} kg`
+            
+        }else{
+            linhaItem.remove()
+        }
+    }
+
+    function remover_item(item) {
+            let item_remover = document.getElementById(`lc_${item}`)
+            item_remover.remove()
+        }
+
+    function add_item(item) {
+        const documento = window.document.getElementById('lista_compra')
+        const item_comprado = window.document.getElementById(item)
+        var nome_item = item_comprado.getElementsByTagName('td')[0].getElementsByTagName('span')[0].textContent
+        var peso = item_comprado.getElementsByTagName('td')[2].textContent.replace(/kg/, '').replace(',','.')
+        var valor = item_comprado.getElementsByTagName('td')[1].textContent.replace(/p./, '')
+        var moeda = item_comprado.getElementsByTagName('input')[0].value
+        var iid = window.document.getElementById(`${item}_iid`).value
+
+        // Fazendo a adição na quantidade do item
+        if(window.document.getElementById(`lc_${nome_item}`)) {
+            let item_existente = window.document.getElementById(`lc_${nome_item}`);
+            // Aumentando em 1 a quantidade do item
+            window.document.getElementById(`${nome_item}_Q`).value ++
+            //Pegando o valor atual de quantidade
+            let quantidade = window.document.getElementById(`${nome_item}_Q`).value
+
+            //Pegando o preco escondido do item e multiplicando pela quantidade
+            item_existente.getElementsByTagName('td')[2].innerText = `${valor*quantidade} ${moeda}`
+
+            //Pegando o peso escondido do item e multiplicando pela quantidade
+            item_existente.getElementsByTagName('td')[3].innerText = `${peso*quantidade} kg`
+            
+        }else{
+            // Adicionando o item ao carrinho de compras
+            let linha = documento.insertRow(-1);
+            linha.id = `lc_${nome_item}`;
+            linha.setAttribute('name','item_pegar');
+            linha.insertCell(0).innerHTML = 
+            `<input type="text" form="SalvarItens" name="item_nome" id="${nome_item}_N" value="${nome_item}">`
+            linha.insertCell(1).innerHTML = 
+            `<input type="number" form="SalvarItens" name="item_quantidade" id="${nome_item}_Q" value="1">`
+            linha.insertCell(2).innerHTML = `${valor} ${moeda}`
+            linha.insertCell(3).innerHTML = `${peso} kg`
+            linha.insertCell(4).innerHTML = `
+                <button type="button"onclick="remove_item('lc_${nome_item}')">-</button>
+                <input form="SalvarItens" type="hidden" id="${nome_item}_moeda" value="${moeda}">
+                <input form="SalvarItens" type="hidden" name='${nome_item}_valor_base' id='${nome_item}_valor_base' value="${valor}">
+                <input form="SalvarItens" type="hidden" name='${nome_item}_peso_base' id='${nome_item}_peso_base' value="${peso}">
+                `
+        }
+    }
+
+    function add_novo_item() {
+        const tabela_itens = window.document.getElementById('lista_compra')
+        var novo_item= window.document.createElement('tr')
+        novo_item.setAttribute('name','item_pegar')
+        novo_item.innerHTML = 
+        `
+        <td> <input form="SalvarItens" type="text" name="item_nome"> </td>
+        <td> <input form="SalvarItens" type="number" name="item_quantidade" value='1'> </td>
+        <td> </td>
+        <td> </td>
+        <td style=" border:3px solid black;">
+            <button type="button" id="rem_item" onclick="remove_item('{{item.nome_item}}')">-</button>
+        </td>
+        `
+        tabela_itens.appendChild(novo_item)
+    }
+
+</script>

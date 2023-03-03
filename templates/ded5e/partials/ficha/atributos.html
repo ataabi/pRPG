@@ -1,0 +1,102 @@
+<div  id="area_atributos">
+    <h3>Atributos</h3>
+    <table class="tabela" id="tabela_atributos">
+        <tbody>
+            <tr>
+                <td>
+                    <label class="numero">Força <input type="number" name="forca" 
+                        {% if base.forca %} value="{{base.forca}}"  {% else %} value="0" {% endif %}> 
+                    </label>
+                </td>
+                <td>MOD 
+                    {% if base.mod_forca %}
+                        {{base.mod_forca}}
+                    {% else  %}
+                    0
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="numero">Destreza<input type="number" name="destreza"
+                        {% if base.forca %} value="{{base.destreza}}" {% else %} value="0" {% endif %}>
+                    </label>
+                </td>
+                <td>MOD
+                    {% if base.mod_destreza %}
+                        {{base.mod_destreza}}
+                    {% else  %}
+                    0
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="numero">Constituição<input type="number" name="constituicao" 
+                        {% if base.forca %} value="{{base.constituicao}}" {% else %} value="0" {% endif %}> 
+                    </label>
+                </td>
+                <td>MOD
+                    {% if base.mod_constituicao %}
+                        {{base.mod_constituicao}}
+                    {% else  %}
+                    0
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="numero">Integiência<input type="number" name="inteligencia" 
+                        {% if base.forca %} value="{{base.inteligencia}}" {% else %} value="0" {% endif %}>
+                    </label>
+                </td>
+                <td>MOD
+                    {% if base.mod_inteligencia %}
+                        {{base.mod_inteligencia}}
+                    {% else  %}
+                    0
+                    {% endif %}
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="numero">Sabedoria<input type="number" name="sabedoria" 
+                        {% if base.forca %} value="{{base.sabedoria}}"{% else %} value="0" {% endif %}>
+                    </label>
+                </td>
+                <td>MOD
+                    {% if base.mod_sabedoria %}
+                        {{base.mod_sabedoria}}
+                    {% else  %}
+                    0
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="numero">Carisma<input type="number" name="carisma" 
+                        {% if base.forca %} value="{{base.carisma}}" {% else %} value="0" {% endif %}>
+                    </label>
+                </td>
+                <td>MOD
+                    {% if base.mod_carisma %}
+                        {{base.mod_carisma}}
+                    {% else  %}
+                    0
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>  
+<script>
+    var tabela = document.getElementById("tabela_atributos");
+    tabela.addEventListener("change", () => {
+        var lista = tabela.getElementsByTagName("tr");
+        for(let i in lista) {
+            var atributo = lista[i].getElementsByTagName("td");
+            var valor_atributo = atributo[0].getElementsByTagName("input")[0].valueAsNumber
+            atributo[1].innerText ="MOD " + Math.ceil((valor_atributo - 10)/2)
+        }
+    })
+</script>

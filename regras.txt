@@ -1,0 +1,148 @@
+Ficha
+ * Informações Basicas
+  - Nome jogador
+  - Nome personagem
+  - Classe/s
+  - Niveis
+  - Antecedente
+  - Raça
+  - Tendência
+  - Divindade
+  - Terra Natal
+  - Inspiração
+  - Bonus de proficiencia
+  - Iniciativa
+  - Classe de Armadura (CA)
+  - Deslocamento
+  - PV Maximo
+  - PV atual
+  - Dados de Vida
+  - Idiomas
+
+ * Caracteísticas do personagem
+  - Idade
+  - Altura
+  - Tamanho
+  - Peso
+  - Cor dos Olhos 
+  - Cor da Pele
+  - Cor do Cabelo
+  - Traços de Personalidade
+  - Ideais
+  - Vinculos
+  - Fraquezas
+  - Histórico do Personagem
+  - Aliados E Organizações
+  - Imagen do Personagem
+
+* Habilidades de Classe
+* Talentos
+* Caracteísticas Raciais
+ - Nome / Descrição
+
+ * Exp
+  - Atual
+  - Proximo Level
+
+ * Atributos 
+  - Força
+  - Destreza
+  - Constituição
+  - Inteligencia
+  - Sabedoria
+  - Carisma 
+    - MOD = ( atributo - 10 ) / 2 "arredondado para baixo"
+ 
+ * Sabedoria Passiva 
+ ( 10 + modificador de sabedoria)
+
+ * Testes de Resistência
+  - Força 
+  - Destreza
+  - Constituição
+  - Inteligencia
+  - Sabedoria
+  - Carisma 
+   total = modificador + proficiencia + bonus
+
+ * Perícias
+  - acrobacia
+  - adestrar animais
+  - arcanismo
+  - atletismo
+  - atuacao
+  - enganacao
+  - furtividade 
+  - historia
+  - intimidacao
+  - intuicao
+  - investigação
+  - medicina
+  - natureza
+  - percepcao
+  - persuasao
+  - prestidigitar
+  - religiao
+  - sobrevivencia
+   - total = (Modificador do atributo + proficiencia + bonus)
+
+ * Ferramentas e outras Proficiências
+  - Nome
+   - total = (Modificador do atributo + proficiencia + bonus)
+
+* Bolsa de Moedas
+ - quantidade / Moeda (pc)
+ - quantidade / Moeda (pp)
+ - quantidade / Moeda (pe)
+ - quantidade / Moeda (po)
+ - quantidade / Moeda (pl)
+
+
+* Equipamentos e inventario
+ * ITEM_BASE
+  - Nome
+  - valor
+  - moeda
+  - Descrição
+  - Fonte
+
+ * Itens Comuns/ mágicos
+  - Nome /
+  - Valor /
+  - Moeda /
+  - Peso
+  - Descrição
+  - Propiedades
+
+ * Itens de Defesa
+  - Nome /
+  - Valor /
+  - Moeda /
+  - Classe de Armadura (CA)
+  - Força (valor minimo para usar)
+  - Furtividade 
+  - Peso
+
+ * Itens de Ataque
+  - Nome /
+  - Valor /
+  - Moeda / 
+  - Tipo (Corpo a Corpo, Distancia)
+  - Dano
+  - Peso 
+  - Propiedades
+  - Descrição
+
+* Magias 
+ - Nome
+ - Nivel
+ - Tempo de Conjuração
+ - Alcance
+ - Componentes
+ - Duração
+ - Escola
+ - Alvos
+ - Areas de Efeito
+ - Testes de Resistência
+ - Jogada de Ataque
+ - Fonte

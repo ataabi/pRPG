@@ -1,0 +1,77 @@
+<div id="area_teste_resistencia" class="caixa-25" >
+    <h3>Teste De Resistencia</h3>
+    <table class="tabela">
+        <thead>
+            <tr>
+                <th>TR</th>
+                <th>Prof</th>
+                <th>Outros</th>
+                {% if base %}
+                <th>Total</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>FOR</td>
+                <td><input type="hidden" name="res_for" id="res_for" value='False'>
+                    <input type="checkbox" name="res_for" id="res_for" 
+                    {% if base.res_for %} checked {% endif %} value="True"></td>
+                <td><input type="number" name="bonus_res_for" id="bonus_res_for" 
+                    {% if base.res_for %} value="{{base.bonus_res_for}}" 
+                    {% else %} value="0" {% endif %}></td>
+                <td ><p>{{base.valor_res_for}}</p></td>
+            </tr>
+            <tr>
+                <td>DES</td>
+                <td><input type="hidden" name="res_des" id="res_des" value='False'>
+                    <input type="checkbox" name="res_des" id="res_des" 
+                    {% if base.res_des %} checked {% endif %} value="True"></td>
+                <td><input type="number" name="bonus_res_des" id="bonus_res_des" 
+                    {% if base.bonus_res_des %} value="{{base.bonus_res_des}}" 
+                    {% else %} value="0" {% endif %}></td>
+                <td><p>{{base.valor_res_des}}</p></td>
+            </tr>
+            <tr>
+                <td>CONS</td>
+                <td><input type="hidden" name="res_cons" id="res_cons" value='False'>
+                    <input type="checkbox" name="res_cons" id="res_cons" 
+                        {% if base.res_cons %} checked {% endif %} value="True"></td>
+                <td><input type="number" name="bonus_res_cons" id="bonus_res_cons" 
+                    {% if base.bonus_res_cons %} value="{{base.bonus_res_cons}}" 
+                    {% else %} value="0" {% endif %}></td>
+                <td><p>{{base.valor_res_cons}}</p></td>
+            </tr>
+            <tr>
+                <td>INT</td>
+                <td><input type="hidden" name="res_int" id="res_int" value='False'>
+                    <input type="checkbox" name="res_int" id="res_int"
+                        {% if base.res_int %} checked {% endif %} value="True"></td>
+                <td><input type="number" name="bonus_res_int" id="bonus_res_int" 
+                    {% if base.bonus_res_int %} value="{{base.bonus_res_int}}" 
+                    {% else %} value="0" {% endif %}></td>
+                <td><p>{{base.valor_res_int}}</p></td>
+            </tr>
+            <tr>
+                <td>SAB</td>
+                <td><input type="hidden" name="res_sab" id="res_sab" value='False'>
+                    <input type="checkbox" name="res_sab" id="res_sab" 
+                    {% if base.res_sab %} checked {% endif %} value="True"></td>
+                <td><input type="number" name="bonus_res_sab" id="bonus_res_sab" 
+                    {% if base.bonus_res_sab %} value="{{base.bonus_res_sab}}" 
+                    {% else %} value="0" {% endif %}></td>
+                <td><p>{{base.valor_res_sab}}</p></td>
+            </tr>
+            <tr>
+                <td>CAR</td>
+                <td><input type="hidden" name="res_car" id="res_car" value='False'>
+                    <input type="checkbox" name="res_car" id="res_car" 
+                    {% if base.res_car %} checked {% endif %} value="True"></td>
+                <td><input type="number" name="bonus_res_car" id="bonus_res_car" 
+                    {% if base.bonus_res_car %} value="{{base.bonus_res_car}}" 
+                    {% else %} value="0" {% endif %}></td>
+                <td><p>{{base.valor_res_car}}</p></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

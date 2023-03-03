@@ -1,0 +1,54 @@
+<div class="divFormulario" id="vitrine">
+    <h2> Armas <button id="addArma">Adicionar Arma</button></h2>
+    
+    {% for arma in armas %}
+    <div class="divEquipamentos">
+        <h3>{{arma.nome}} <span>
+            <a href="{% url 'remover_arma' nome_personagem arma.id %}">&#128465</a></span></h3>
+        <p><strong>Preço: </strong>{{arma.preco}} {{arma.moeda}}</p>
+        <p><strong>Peso: </strong>{{arma.peso}}</p>
+        <p><strong>Dano: </strong>{{arma.dano}}</p>
+        <br>
+        <p><strong>Propriedades</strong>{{arma.propriedades}}</p>
+        <p><strong>Descrição</strong>{{arma.descricao}}</p>
+    </div>
+    {% endfor%}
+
+    <h2> Armaduras <button id="addArmadura">Adicionar Armadura</button></h2>
+    
+    {% for armadura in armaduras %}
+        <div class="divEquipamentos">
+            <h3>{{armadura.nome}} <span>
+                <a href="{% url 'remover_armadura' nome_personagem armadura.id %}">&#128465</a></span></h3>
+            <p><strong>Preço: </strong>{{armadura.preco}} {{armadura.moeda}}</p>
+            <p><strong>Peso: </strong>{{armadura.peso}}</p>
+            <p><strong>CA: </strong>{{armadura.ca}}</p>
+            
+            {% if armadura.forca != 0 %}
+                <p><strong>Força: </strong>{{armadura.forca}}</p>
+            {% endif %}
+            {% if armadura.furtividade != False %}
+                <p><strong>Furtividade: </strong>{{armadura.furtividade}}</p>
+            {% endif %}
+            
+            <p><strong>Categoria: </strong>{{armadura.categoria}}</p>
+            <br>
+            <p><strong>Descrição</strong>{{armadura.descricao}}</p>
+        </div>
+    {% endfor%}
+</div>
+    
+
+<script>
+    var arma = document.getElementById('addArma')
+    var armadura = document.getElementById('addArmadura')
+    arma.addEventListener('click',() => {
+        document.getElementById('vitrine').innerHTML = 
+        `{% include "ded5e/partials/equipamentos/cria_arma.html" %}`
+    })
+    armadura.addEventListener('click',() => {
+        document.getElementById('vitrine').innerHTML = 
+        `{% include "ded5e/partials/equipamentos/cria_armadura.html" %}`
+    })
+</script>
+    

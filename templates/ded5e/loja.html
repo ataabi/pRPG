@@ -1,0 +1,56 @@
+
+{% extends 'base.html' %}
+{% block base %}
+    <!-- Seletor de Personagem -->
+        <div class="select-personagem">
+            <h4>Selecione um personagem:</h4>
+            <form >
+                <select name="personagem" id="personagem">
+                {% for personagem in personagens %}
+                    <option value="{{personagem.nome_personagem}}">{{personagem.nome_personagem}}</option>
+                {%endfor%}
+                </select>
+                <input type="submit" value="Selecionar">
+            </form>
+        </div>
+    <!-- Loja com os Itens disponiveis -->
+    <div class="loja">
+        <div class="bloco-loja" >
+            <table id="tabela_inventario" class="tabela-loja">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                        <th>Peso</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in itens%}
+                        <tr id="{{item.nome}}">
+                            <td>
+                                <div class="popup" onclick="funcPopup( 'pop_{{item.nome}}' )">
+                                    <span>{{item.nome}}</span>
+                                    <span class="popuptext" id="pop_{{item.nome}}">{{item.descricao}}</span>
+                                </div>
+                            </td>
+                            <td name="valor">{{item.valor}} {{item.moeda}}</td>
+                            <td name="peso">{{item.peso}} kg</td>
+                            <td>
+                                <button type="button" onclick="subtrair_item('{{item.nome}}')">-</button>
+                                <button type="button" onclick="add_item('{{item.nome}}')">+</button>
+                            </td>
+                            <input type="hidden" id="moeda" value="{{item.moeda}}">
+                            <input type="hidden" id="{{item.nome}}_iid" value="{{item.id}}">
+                        </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        <!-- Inventario do Personagem selecionado -->
+        {% if personagem %}
+            {% include 'ded5e/partials/inventario.html' %}
+        {% endif %}
+    </div>
+
+{% endblock %}

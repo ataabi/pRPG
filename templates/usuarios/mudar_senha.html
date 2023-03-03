@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block base %}
+
+    {% if nome %}
+    <div class="divFormulario" >
+        <form method="post" action="{% url 'altera_senha' %}">{% csrf_token %}
+            <input type="hidden" value="{{nome}}" name="nome_usuario">
+            <input type="hidden" value="{{email}}" name="email_usuario">
+            <label>Senha
+                <input type="text" name="senha1">
+            </label>
+            <label>Confirmar Senha
+                <input type="text" name="senha2">
+            </label>
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+    {% else %}
+    <div class="divFormulario" >
+        <form method="post" action="{% url 'altera_senha' %}">{% csrf_token %}
+            <label>Nome
+                <input type="text" name="nome_usuario">
+            </label>
+            <label>Email
+                <input type="email" name="email_usuario">
+            </label>
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+    {% endif %}
+
+
+
+
+{%endblock%}

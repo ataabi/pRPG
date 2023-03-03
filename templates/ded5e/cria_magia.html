@@ -1,0 +1,29 @@
+<div class="divFormulario" id='cria_magia'>
+    <form method="post" action="{% url 'adicionar_magia' nome_personagem %}">{% csrf_token %}
+        <label>Nome
+            <input type="text" name="nome_magia">
+        </label>
+        <label>nivel
+            <input type="number" name="nivel_magia">
+        </label>
+        <label>escola
+            <input type="text"  name="escola_magia">
+        </label>
+        <label>tempo_conjuracao
+            <input type="text" name="tempo_conjuracao_magia">
+        </label>
+        <label>alcance
+            <input type="text" name="alcance_magia">
+        </label>
+        <label>componentes
+            <input type="text"  name="componentes_magia">
+        </label>
+        <label>duraçao
+            <input type="text" name="duracao_magia">
+        </label>
+        <label for="descricao_magia">descricao</label>
+            <textarea name="descricao_magia" id="descricao_magia" cols="65" rows="10"></textarea>
+        
+        <input type="submit" value="Adicionar Mágia">
+    </form>
+</div>

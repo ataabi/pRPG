@@ -1,18 +1,15 @@
 /* Menu Lateral da Ficha */
 #lista_personagens {
-    width: 20%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    background-color: goldenrod;
+    width: 15%;
+    float: left;
+    background-color: brown;
     border: 5px double black;
-    display:block;
-    margin: 1% 1%;
+    margin: 1% auto;
     padding: 1%;
 }
 #lista_personagens div {
     text-align: center;
-    background-color: goldenrod;
+    background-color: brown;
     border: 2px solid black;
     border-radius: 3px;
     margin: 3% auto;
@@ -39,19 +36,15 @@
 
 /* Ficha do Personagem */
 #ficha {
-    position:absolute;
-    right: 0;
-    width: 73%;
+    width: 78%;
     display: inline-block;
-    margin: 1% 1.5%;
+    float: right;
+    margin: 1% auto;
     border: 4px double black;
-    /* background-color: gold; */
     align-self: stretch;
     align-content: flex-start;
 }
 #ficha div {
-    /* border-color: black;
-    border:2px solid black ; */
     padding: 2%;
     display: inline-block;
     vertical-align: top;
@@ -59,26 +52,29 @@
 
 /* Primeira Parte contendo as informações basicas */
 #area_base {
+    display: flex;
+    flex-direction: row;
+    
 }
 #area_base h2{
     margin: 3px auto;
     font-size: 28px;
 }
 
-/* Área de Habilidades */
-#area_habilidades {
+/* Área de Atributos */
+#area_atributos {
     display: inline-block;
     padding: 3px;
     width: 130px;
     /* background-color: blueviolet; */
 }
-#area_habilidades label {
+#area_atributos label {
     display: block;
     margin: 5px auto;
     width: 110px;
     text-align: center;
 }
-#area_habilidades input {
+#area_atributos input {
     display: block;
     text-align: center;
     font-size: 22px;
@@ -167,7 +163,7 @@
     right: auto;
     left: auto;
     font-size: 18px;
-    background-color:goldenrod;
+    /* background-color:goldenrod; */
     text-align: center;
 }
 .texto input {
@@ -175,7 +171,7 @@
     background-color: transparent;
     border:none;
     text-align: center;
-    color: white;
+    /* color: white; */
     max-width: 50%;
     white-space:normal;
     overflow:visible;
@@ -201,7 +197,7 @@
 }
 .numero input {
     text-align: center;
-    color: white;
+    /* color: white; */
     font-weight: bold;
     background-color: transparent;
     border: none;

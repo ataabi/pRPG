@@ -1,0 +1,229 @@
+<div id="area_pericias"  class="caixa-40" >
+    <h3>Perícias</h3>
+    <table class="tabela">
+        <tr>
+            <th> Perícia </th>
+            <th> Prof </th>
+            <th> Outros </th>
+            <th> Total </th>
+        </tr>
+        {% if not dicionario_pericias %}
+
+            {% for pericia in lista_pericias %}
+        <tr>
+            <td><label for="{{pericia}}">{{pericia|title}}</label></td>
+            <td>
+                <input type="hidden" name="{{pericia}}" id="{{pericia}}" value='False'>
+                <input type="checkbox" name="{{pericia}}" id="{{pericia}}"value="True" >
+            </td>
+            <td class="numero"><input  type="number" name="bonus_{{pericia}}" id="bonus_{{pericia}}" value="0"></td>
+            <td class="numero"><p></p></td>
+        </tr>
+            {% endfor %}
+        {% else %}
+            {% for pericia, valor in dicionario_pericias.items %}
+                <tr >
+                    <td>{{pericia|title}}</td>
+                    <td>
+                        <input type="hidden" name="{{pericia}}" id="{{pericia}}" value='False'>
+                        <input type="checkbox" name="{{pericia}}" id="{{pericia}}"
+                        {% if valor.0 %} checked {% endif %} value="True" >
+                    </td>
+                    <td><input type="number" name="bonus_{{pericia}}" id="bonus_{{pericia}}"
+                        {% if valor.1 > 0 %} value="{{valor.1}}" {% else %} value="0" {%endif%}></td>
+                    <td><p>{% if valor.0 %} {{valor.1|add:base.proficiencia }} {% else %} {{valor.1}}{% endif %}</p></td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        <!-- <tr>
+            <th>Acrobacia</th>
+            <th>
+                <input type="hidden" name="acrobacia" id="acrobacia" value='False'>
+                <input type="checkbox" name="acrobacia" id="acrobacia" 
+                {% if base.acrobacia %} checked {% endif %} value="True" >
+            </th>
+            <th>
+                <input type="number" name="bonus_acrobacia" id="bonus_acrobacia" 
+                {% if base.bonus_acrobacia %} value="{{base.bonus_acrobacia}}" {% else %} value="0" {%endif%}>
+            </th>
+            <th><p>{{ base.valor_acrobacia }}</p></th>
+        </tr>
+        <tr>
+            <th>Adestrar Animais</th>
+            <th>
+                <input type="hidden" name="adestrar_animais" id="adestrar_animais" value='False'>
+                <input type="checkbox" name="adestrar_animais" id="adestrar_animais" 
+                {% if base.adestrar_animais %} checked {% endif %} value="True">
+            </th>
+            <th><input type="number" name="bonus_adestrar_animais" id="bonus_adestrar_animais" value="{{base.bonus_adestrar_animais}}"></th>
+            <th><p>{{ base.valor_adestrar_animais }}</p></th>
+        </tr>
+        <tr>
+            <th>Arcanismo</th>
+            {% if base.arcanismo %}
+                <th><input type="checkbox" name="arcanismo" id="arcanismo" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="arcanismo" id="arcanismo" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_arcanismo" id="bonus_arcanismo" value="{{base.bonus_arcanismo}}"></th>
+            <th><p>{{ base.valor_arcanismo }}</p></th>
+        </tr>
+        <tr>
+            <th>Atletismo</th>
+            {% if base.atletismo %}
+                <th><input type="checkbox" name="atletismo" id="atletismo" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="atletismo" id="atletismo" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_atletismo" id="bonus_atletismo" value="{{base.bonus_atletismo}}"></th>
+            <th><p>{{ base.valor_atletismo }}</p></th>
+        </tr>
+        <tr>
+            <th>Atuação</th>
+            {% if base.atuacao %}
+                <th><input type= "checkbox" name="atuacao" id="atuacao" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="atuacao" id="atuacao" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_atuacao" id="bonus_atuacao" value="{{base.bonus_atuacao}}"></th>
+            <th><p>{{ base.valor_atuacao }}</p></th>
+        </tr>
+        <tr>
+            <th>Enganação</th>
+            {% if base.enganacao %}
+                <th><input type="checkbox" name="enganacao" id="enganacao" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="enganacao" id="enganacao" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_enganacao" id="bonus_enganacao" value="{{base.bonus_enganacao}}"></th>
+            <th><p>{{ base.valor_enganacao }}</p></th>
+        </tr>
+        <tr>
+            <th>Furtividade</th>
+            {% if base.furtividade %}
+                <th><input type="checkbox" name="furtividade" id="furtividade" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="furtividade" id="furtividade" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_furtividade" id="bonus_furtividade" value="{{base.bonus_furtividade}}"></th>
+            <th><p>{{ base.valor_furtividade }}</p></th>
+        </tr>
+        <tr>
+            <th>História</th>
+            {% if base.historia %}
+                <th><input type="checkbox" name="historia" id="historia" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="historia" id="historia" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_historia" id="bonus_historia" value="{{base.bonus_historia}}"></th>
+            <th><p>{{ base.valor_historia }}</p></th>
+        </tr>
+        <tr>
+            <th>Intimidação</th>
+            {% if base.intimidacao %}
+                <th><input type="checkbox" name="intimidacao" id="intimidacao" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="intimidacao" id="intimidacao" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_intimidacao" id="bonus_intimidacao" value="{{base.bonus_intimidacao}}"></th>
+            <th><p>{{ base.valor_intimidacao }}</p></th>
+        </tr>
+    </table>
+    <table style="display: inline-block;">
+        <tr>
+            <th>Pericia</th>
+            <th>Prof</th>
+            <th>Outros</th>
+        </tr>
+        <tr>
+            <th>Intuição</th>
+            {% if base.intuicao %}
+                <th><input type="checkbox" name="intuicao" id="intuicao" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="intuicao" id="intuicao" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_intuicao" id="bonus_intuicao" value="{{base.bonus_intuicao}}"></th>
+            <th><p>{{ base.valor_intuicao }}</p></th>
+        </tr>
+        <tr>
+            <th>Investigação</th>
+            {% if base.investigação %}
+                <th><input type="checkbox" name="investigação" id="investigação" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="investigação" id="investigação" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_investigação" id="bonus_investigação" value="{{base.bonus_investigação}}"></th>
+            <th><p>{{ base.valor_investigação }}</p></th>
+        </tr>
+        <tr>
+            <th>Medicina</th>
+            {% if base.medicina %}
+                <th><input type="checkbox" name="medicina" id="medicina" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="medicina" id="medicina" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_medicina" id="bonus_medicina" value="{{base.bonus_medicina}}"></th>
+            <th><p>{{ base.valor_medicina }}</p></th>
+        </tr>
+        <tr>
+            <th>Natureza</th>
+            {% if base.natureza %}
+                <th><input type="checkbox" name="natureza" id="natureza" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="natureza" id="natureza" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_natureza" id="bonus_natureza" value="{{base.bonus_natureza}}"></th>
+            <th><p>{{ base.valor_natureza }}</p></th>
+        </tr>
+        <tr>
+            <th>Percepção</th>
+            {% if base.percepcao %}
+                <th><input type="checkbox" name="percepcao" id="percepcao" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="percepcao" id="percepcao" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_percepcao" id="bonus_percepcao" value="{{base.bonus_percepcao}}"></th>
+            <th><p>{{ base.valor_percepcao }}</p></th>
+        </tr>
+        <tr>
+            <th>Persuasão</th>
+            {% if base.persuasao %}
+                <th><input type="checkbox" name="persuasao" id="persuasao" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="persuasao" id="persuasao" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_persuasao" id="bonus_persuasao" value="{{base.bonus_persuasao}}"></th>
+            <th><p>{{ base.valor_persuasao }}</p></th>
+        </tr>
+        <tr>
+            <th>Prestidigitar</th>
+            {% if base.prestidigitar %}
+                <th><input type="checkbox" name="prestidigitar" id="prestidigitar" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="prestidigitar" id="prestidigitar" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_prestidigitar" id="bonus_prestidigitar" value="{{base.bonus_prestidigitar}}"></th>
+            <th><p>{{ base.valor_prestidigitar }}</p></th>
+        </tr>
+        <tr>
+            <th>Religião</th>
+            {% if base.religiao %}
+                <th><input type="checkbox" name="religiao" id="religiao" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="religiao" id="religiao" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_religiao" id="bonus_religiao" value="{{base.bonus_religiao}}"></th>
+            <th><p>{{ base.valor_religiao }}</p></th>
+        </tr>
+        <tr>
+            <th>Sobrevivência</th>
+            {% if base.sobrevivencia %}
+                <th><input type="checkbox" name="sobrevivencia" id="sobrevivencia" checked value="True"></th>
+            {% else %}
+                <th><input type="checkbox" name="sobrevivencia" id="sobrevivencia" value="True"></th>
+            {% endif %}
+            <th><input type="number" name="bonus_sobrevivencia" id="bonus_sobrevivencia" value="{{base.bonus_sobrevivencia}}"></th>
+            <th><p>{{ base.valor_sobrevivencia }}</p></th>
+        </tr> -->
+    </table>
+</div>

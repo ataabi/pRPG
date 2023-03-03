@@ -1,25 +1,26 @@
 body {
-    background-color: rgb(68, 39, 2);
+    /* background-color: rgb(68, 39, 2); */
+    background-color:burlywood;
 }
 
 .banner {
     text-align: center;
-    padding: 10px;
-    vertical-align: baseline;
-    background-color: goldenrod;
-    height: 40px;
-    border-radius: 1pc 1pc 0 0;
+    /* padding: 10px; */
+    background-color: black;
+    height: 80px;
+    vertical-align: middle;
+    color: brown;
+    border:2px solid brown;
 }
 
 /* barra de navegação do site */
 .navegador {
     border: 2px solid rgb(129, 109, 57);
-    border-radius: 0 0 1pc 1pc ;
     padding: 5px 2% 5px 2%;
     margin: auto ;
     text-align: center;
     text-decoration: none;
-    background-color: black
+    background-color: black;
 }
 .navegador a {
     font-size: 18px;
@@ -30,11 +31,11 @@ body {
 }
 
 /* Remove as setinhas dos input tipo button */
-input::-webkit-outer-spin-button,
+/* input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
+} */
 
 /* Formulario de Login e Cadastro */
 .divMensagem {
@@ -50,8 +51,8 @@ input::-webkit-inner-spin-button {
 .divFormulario {
     /* background-color: pink; */
     display: block;
-    width: 300px;
-    margin:auto ;
+    width: 60%;
+    margin: 10px auto ;
     padding: 20px;
 }
 .divFormulario label {
@@ -81,31 +82,31 @@ input::-webkit-inner-spin-button {
     border: 2px solid black;
 }
 
-input[type=select] {
-
-}
 
 /* Loja de itens */
 .select-personagem {
-    display: block;
-    margin: 15px auto;
+    width:100%;
     text-align: center;
+}
+.loja {
+    /* width: 90%; */
+    max-width: 90%;
+    height: auto;
+    /* margin: 0 auto; */
 }
 
 .bloco-loja {
-    /* background-color: aquamarine; */
-    display: inline-block;
-    vertical-align: top;
-    margin: auto 1%;
-    width: 45%;
+    float: left;
 }
-.bloco-loja:nth-child(2) {
+.bloco-loja-2 {
+    /* margin-left: auto; */
     float: right;
-    /* text-align: end; */
 }
+
+
 .tabela-loja {
     display: inline-block;
-    background-color: goldenrod;
+    background-color: brown;
     border: 1px solid black;
     border-radius: 10px;
     margin: 20px auto;
@@ -122,7 +123,7 @@ input[type=select] {
 
 .tabela-loja td:nth-child(2), 
 .tabela-loja th:first-child {
-    text-align: center; 
+    /* text-align: center;  */
 }
 .tabela-loja input{
     background-color: transparent;
@@ -138,6 +139,84 @@ input[type=select] {
 .tabela-loja:last-child {
     float: right;
 }
+
+/*  Exibição da Area de magias  */
+.exibicaoMagia {
+    border-radius: 6px;
+    border: 2px solid black;
+    background-color: blueviolet;
+    padding: 15px;
+    float: right;
+    width: 80%;
+    margin: 5px auto;
+    display: inline-block;
+}
+.exibicaoMagia h3 {
+    text-align: start;
+    margin-bottom: 5px ;
+}
+.exibicaoMagia strong, .exibicaoMagia p {
+    display: inline;
+    margin-left: 2%;
+    word-wrap: break-word;
+}
+.exibicaoMagia div {
+    border-bottom: 1px dashed black;
+    max-width: 100%;
+}
+.exibicaoMagia button {
+    padding: 2% 35% 2% 35%;
+    border-radius: 6px;
+    border:1px dashed black;
+    background-color:transparent;
+    font-weight: bold;
+    font-size: 18px;
+    color:white;
+}
+.exibicaoMagia span {
+    float: right;
+    font-size: 22px;
+}
+.exibicaoMagia a {
+    text-decoration: none;
+    color: red;
+}
+
+
+/* Exibição da parte de equipamentos */
+.divEquipamentos {
+    display: table;
+    float: right;
+    background-color: grey;
+    width: 80%;
+    border: 1px solid black;
+    padding: 1%;
+    margin: 1%;
+}
+.divEquipamentos p {
+    display: inline-block;
+    min-width: 15%;
+    margin: 2px 10px;
+}
+.divEquipamentos {
+}
+.divEquipamentos span {
+    float: right;
+    font-size: 22px;
+}
+.divEquipamentos a {
+    text-decoration: none;
+    color: red;
+}
+
+/* Mexendo nos titulos dos Equipamentos apartir da classe divFormulario */
+.divFormulario h2 button {
+    float: right;
+    width: 20%;
+    border: 1px solid black;
+    background-color: grey;
+}
+
 
 /* Popup container */
 .popup {
@@ -194,3 +273,21 @@ input[type=select] {
     from {opacity: 0;}
     to {opacity:1 ;}
     }
+
+
+.caixa {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.caixa-25 {
+    width: 25%;
+}
+.caixa-40 {
+    width: 40%;
+}
+
+
+
+

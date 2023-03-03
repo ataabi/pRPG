@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os, sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,13 +28,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ["https://e4ff-177-185-184-25.sa.ngrok.io"]
+CSRF_TRUSTED_ORIGINS = []
 
 # Application definition
 
 INSTALLED_APPS = [
-    'personagem',
-    'itens',
+    'ded5e.personagem',
+    'ded5e.itens',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -138,3 +138,12 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
     messages.SUCCESS: 'success',
 }
+
+
+# Pasta dos aplicativos do projeto
+PROJECT_ROOT = os.path.dirname(__file__)
+sys.path.insert(0, os.path.join(PROJECT_ROOT, '../apps'))
+
+#Media 
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block base %}
+    <link rel='stylesheet' href="{% static 'ver_ficha.css' %}">
+    <div id="lista_personagens">
+        <h2>Minhas Fichas</h2>
+        {% if not personagens %}
+            <a href="{% url 'cria_ficha' %}">Criar Nova Ficha</a>
+        {%endif%}
+        <form action="{% url 'ver_ficha' %}" method="GET">
+            {% for ficha in personagens %}
+                <div>
+                    <a href="{% url 'ver_ficha' %}?personagem={{ficha.nome_personagem}}" >{{ficha.nome_personagem|title}}</a>
+                    <a href="{% url 'inventario' ficha.nome_personagem%}">Inventario</a>
+                    
+                    <button onclick="nova_janela('http://127.0.0.1:8000/inventario?personagem=Teste')" >Inventario</button>
+                    
+                    <a href="{% url 'equipamentos' ficha.nome_personagem %} ">Equipamentos</a>
+                    <a href="{% url 'ver_magias' ficha.nome_personagem %}" >Magias</a>
+                    <a href="{% url 'deletar_ficha' %}?personagem={{ficha.nome_personagem}}" >Excluir</a>
+                </div>
+            {% endfor %}
+        </form>
+        <!-- <a href="{% url 'cria_ficha' %}">Criar Nova Ficha</a> -->
+    </div>
+    {% if base %}
+        <div id="ficha">
+            <form id="SalvarFicha" method="POST" action="{% url 'editar_ficha' %}">
+                {% csrf_token %}
+                <div >
+                    {% include 'ded5e/partials/ficha/base.html' %}
+                    {% include 'ded5e/partials/ficha/atributos.html' %}
+                    {% include 'ded5e/partials/ficha/testeResistencia.html' %}
+                    {% include 'ded5e/partials/ficha/pericias.html' %} 
+                    {% include 'ded5e/partials/ficha/habilidadesClasse.html' %}
+                    {% include 'ded5e/partials/ficha/caracteristicasRaciais.html' %}
+                    {% include 'ded5e/partials/ficha/talentos.html' %}
+                    <input type="submit" value="Salvar">
+                </div>
+            </form>
+        </div>
+    {% endif %}
+
+    {% if inventario %}
+        {% include 'ded5e/partials/inventario.html' %}
+    {% endif %}
+
+    {% if 'magias' in request.path %}
+        {% include 'ded5e/partials/ver_magias.html' %}
+    {% endif %}
+
+    {% if 'equipamentos' in request.path  %}
+        {% include 'ded5e/partials/equipamentos/ver_equipamentos.html' %}
+    {% endif %}
+
+
+    <script>
+        function myFunction(elemento) {
+        var popup = document.getElementById(elemento);
+        popup.classList.toggle("show");
+        }
+
+        function remove_habilidade(item) {
+            let tabela = window.document.getElementById(item)
+            tabela.deleteRow(-1)
+        }
+
+        function add_habilidade(tabela,elemento) {
+            let documento = window.document.getElementById(tabela)
+            let linha = documento.insertRow(-1);
+            linha.insertCell(0).innerHTML = `<th><input type="text" name="${elemento}" id="${elemento}"></th>`;
+            linha.insertCell(1).innerHTML = `<th><input type="text" name="des_${elemento}" id="des_${elemento}"></th>`;
+        }
+
+        function nova_janela(url) {
+            window.open(url, '_self');
+        }
+    </script>
+
+
+{% endblock%}

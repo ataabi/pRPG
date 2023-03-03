@@ -15,14 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from personagem.urls import *
-from itens.urls import *
+from ded5e.personagem.urls import *
+from ded5e.itens.urls import *
+from usuarios.urls import *
 from django.conf import settings
 from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('personagem.urls')),
-    path('',include('itens.urls')),
+    path('',include('ded5e.personagem.urls')),
+    path('',include('ded5e.itens.urls')),
+    path('',include('usuarios.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
