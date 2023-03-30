@@ -1,3 +1,7 @@
+"""
+Arquivo que contém a lista com os itens comuns do livro do jogador D&D5e
+"""
+
 lista_itens_comuns = [
     {'nome':'Ábaco','valor':'2','moeda':'po','peso':'1','descricao':'d1','propriedades':'false','habilidade':'False'},
 

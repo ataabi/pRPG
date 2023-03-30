@@ -12,12 +12,17 @@ lista_pericias = [
 ]
 
 def index(request):
+    """ View responsável por por renderizar a pagina inicial do site """
     teste = FormTeste()
     return render(request, 'index.html', {'teste':teste})
 
 @login_required(login_url='/login')
 def cria_ficha(request):
-    
+    """ 
+    View responsável por renderizar o formulário para a criação das fichas de
+    personagens do 5e, também verifica o nome do personagem para impedir nomes 
+    duplicados 
+    """
     if request.method == 'GET':
         return render(request, 'ded5e/cria_ficha.html', {'lista_pericias':lista_pericias})
 
@@ -52,6 +57,10 @@ def cria_ficha(request):
 
 @login_required(login_url='/login')
 def ver_ficha(request):
+    """ 
+    View responsável por procurar procurar os personagens, e exibir um personagem 
+    escolhido pelo usuario
+    """
     jogador = request.user.username
     personagens = BasePersonagem.objects.filter(nome_jogador=request.user.username)
     
@@ -78,31 +87,11 @@ def ver_ficha(request):
 
     return render(request,'ded5e/ver_ficha.html' ,dados)
 
-    # try:
-    #     personagem = BasePersonagem.objects.get(
-    #         nome_jogador=request.user.username,nome_personagem=request.POST.get('personagem')
-    #         )
-    # except:
-    #     personagens = 
-    #     return render(request, 'personagens.html', {'base':base})
-
-    # habilidades = HabilidadesClasse.objects.all().filter(personagem=base.id)
-    # talentos = TalentosClasse.objects.all().filter(personagem=base.id)
-    # cara_raciais = CaracteristicasRaciaisClasse.objects.all().filter(personagem=base.id)
-    # inventario = InventarioPersonagem.objects.all().filter(personagem=base.id)
-    
-    # dados = {
-    #     'base':personagem,
-    #     'habilidades':habilidades,
-    #     'talentos':talentos,
-    #     'cara_raciais':cara_raciais,
-    #     'inventario':inventario
-    # }
-
-    # return render(request,'ver_ficha.html' ,dados)
-
 @login_required(login_url='/login')
 def editar_ficha(request):
+    """ 
+    View responsável por pegar os dados modificados da ficha pelo usuario e atualizar a mesma 
+    """
     jogador = request.user.username
     nome_personagem = request.POST['nome_personagem']
     
@@ -125,6 +114,9 @@ def editar_ficha(request):
 
 @login_required(login_url='/login')
 def deletar_ficha(request):
+    """
+    View responsável por deletar uma ficha escolhida pelo usuario
+    """
     jogador = request.user.username
     personagem = request.GET.get('personagem')
     id = BasePersonagem.objects.get(nome_personagem=personagem,nome_jogador=jogador).id
@@ -136,7 +128,10 @@ def deletar_ficha(request):
 # Magias
 @login_required(login_url='/login')
 def ver_magias(request, nome_personagem):
-    
+    """ 
+    responsável por pegar o usuario e o personagem e exibir as magias que tenham esses 
+    dois valores como chave
+    """
     jogador = request.user.username
     personagens = BasePersonagem.objects.filter(nome_jogador=request.user.username)
 
@@ -155,7 +150,10 @@ def ver_magias(request, nome_personagem):
 
 @login_required(login_url='/login')
 def adicionar_magia(request,nome_personagem):
-
+    """ 
+    responsável por pegar os dados da magia criada pelo usuario e vincular 
+    ela ao personagem escolhido
+    """
     personagem = BasePersonagem.objects.get(
         nome_jogador = request.user.username,
         nome_personagem = nome_personagem
@@ -187,12 +185,19 @@ def adicionar_magia(request,nome_personagem):
 
 @login_required(login_url='/login')
 def remover_magia(request,nome_personagem,id):
+    """ 
+    remover uma magia de um personagem escolhida pelo usuário
+    """
     MagiasPersonagem.objects.get(pk=id).delete()
     return redirect(f'ver_magias',nome_personagem)
 
 
 # FUNÇÕES
 def gerencia_multiplos_elementos(request, objeto, tipo_habilidade, personagem):
+    """
+    Função responsável por sincronizar os conteúdos da lista passada pelo servidor e 
+    compararar com a lista do cliente fazer uma atualização de acordo
+    """
     lista_servidor = objeto.objects.filter(personagem=personagem)
     lista_cliente = request.POST.getlist(tipo_habilidade)
     lista_des_cliente = request.POST.getlist(f'des_{tipo_habilidade}')
@@ -210,10 +215,11 @@ def gerencia_multiplos_elementos(request, objeto, tipo_habilidade, personagem):
             objeto.objects.create(personagem=personagem,habilidade=item,descricao=des)
 
 def cria_atualiza_ficha(request):
+    """ 
+    Função responsável por receber os dados do cliente e criar ou atualizar uma ficha de personagem
+    """
     nome_jogador = request.user.username
     nome_personagem = request.POST['nome_personagem']
-
-    print('RESDES',request.POST.get('res_des'))
 
     informacoes = {
         'raca':request.POST['raca'],

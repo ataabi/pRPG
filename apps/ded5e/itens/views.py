@@ -6,6 +6,10 @@ from .models import *
 #Loja
 @login_required(login_url='/login')
 def loja(request):
+    """
+    View responsável por pegar os itens do banco de dados, pegar os personagens do usuário,
+    e exibi-los, também responsável por pegar os itens no inventario do personagem selecionado
+    """
     # PID : ID do Personagem
     # IID : ID do Item
 
@@ -38,6 +42,9 @@ def loja(request):
     return render(request, 'ded5e/loja.html', dados)
     
 def inventario(request,nome_personagem):
+    """
+    View responsável por pegar o inventario de um personagem e exibi-lo
+    """
     personagens = BasePersonagem.objects.filter(nome_jogador=request.user.username)
     
     personagem = BasePersonagem.objects.get(
@@ -52,6 +59,10 @@ def inventario(request,nome_personagem):
         )
 
 def inventario_update(request,nome_personagem):
+    """ 
+    view responsavel por encaminha os dados do formulário do usuário para 
+    a criação ou alteração do inventario do personagem
+    """
     cria_atualiza_inventario(request,nome_personagem)
     return redirect('ver_ficha')
 
@@ -116,6 +127,9 @@ def cria_atualiza_inventario(request,nome_personagem):
 
 
 def equipamentos(request, nome_personagem):
+    """
+    View responsável por buscar as armas e armaduras associadas ao personagem escolhido pelo usuário
+    """
     jogador = request.user.username
     personagens = BasePersonagem.objects.filter(nome_jogador=jogador)
 
@@ -133,6 +147,10 @@ def equipamentos(request, nome_personagem):
     return render(request, 'ded5e/ver_ficha.html', dados)      
 
 def add_armadura(request, nome_personagem):
+    """  
+    View renponsável por pegas as informações do formulário e adicionar uma armadura ao
+    personagem selecionado pelo usuário
+    """
     personagem = BasePersonagem.objects.get(
         nome_personagem=nome_personagem,nome_jogador=request.user.username)
     nome = request.POST.get('nome_armadura')
@@ -160,10 +178,18 @@ def add_armadura(request, nome_personagem):
     return redirect('equipamentos',nome_personagem)
 
 def remover_armadura(request, nome_personagem, id):
+    """ 
+    View responsável por remover uma armadura de um personagem 
+    selecionada pelo usuário
+    """
     Armaduras.objects.get(pk=id).delete()
     return redirect('equipamentos', nome_personagem)
 
 def add_arma(request, nome_personagem):
+    """  
+    View renponsável por pegas as informações do formulário e adicionar uma arma ao
+    personagem selecionado pelo usuário
+    """
     personagem = BasePersonagem.objects.get(
         nome_personagem=nome_personagem,nome_jogador=request.user.username)
     nome = request.POST.get('nome_arma')
@@ -188,10 +214,15 @@ def add_arma(request, nome_personagem):
     return redirect('equipamentos',nome_personagem)       
 
 def remover_arma(request, nome_personagem, id):
+    """ 
+    View responsável por remover uma arma de um personagem 
+    selecionada pelo usuário
+    """
     Armas.objects.get(pk=id).delete()
     return redirect('equipamentos', nome_personagem)
 
 def cria_atualiza_inventario2(request):
+
     """ Compara o inventario do personagem no servirdor com o 
     inventario do cliente, e faz as modificações necessarias"""
 
@@ -238,3 +269,4 @@ def cria_atualiza_inventario2(request):
                 descricao = item_servidor.descricao,
                 propriedades = item_servidor.propriedades,
                 habilidade = item_servidor.habilidade)
+                
