@@ -1,6 +1,7 @@
-<h1 align="center">pRPG</h1git >
+<h1 align="center">pRPG</h1>
 
-Descrição 
+<h3>Descrição </h3>
+<p>
 Esse é um projeto de um gerenciador de fichas para o jogo de RPG de mesa
 Dungeons and Dragons 5e, nesse projeto o usuário poderá criar, editar e 
 deletar as fichas de seus personagens assim como adicionar e remover,
@@ -8,13 +9,14 @@ itens comuns, equipamentos de defesa e de ataque, contando também com
 uma área para a adição da descrição das habilidades do personagem, 
 visando uma melhor usabilidade
 Espero que este site seja útil para a comunidad de jogadores de RPG.
+</p>
+<h3>Contribuiçães</h3> 
 
-Contribuiçães 
-caso deseje contribuir ou reportar falhas.
-mande um email para : jhony.prf@gmail.com
-com o titulo : reporte pRPG
+<p>Caso deseje contribuir ou reportar falhas.<br>
+mande um email para : <strong>jhony.prf@gmail.com</strong><br>
+com o titulo : <strong>Reporte pRPG</strong></p>
 
-Instruções para rodar o site em sua maquina
+<h3>Instruções para rodar o site em sua maquina</h3>
 
 1 - clone o projeto em sua maquina 
   $ git clone https://github.com/ataabi/pRPG
@@ -42,3 +44,4 @@ Instruções para rodar o site em sua maquina
 extra :
 para adicionar os itens comuns do jogos execute o arquivo 
 "popula_loja.py" dentro do ambiente virtual do projeto
+  
